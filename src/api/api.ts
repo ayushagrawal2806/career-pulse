@@ -17,6 +17,7 @@ type RequestOptions<T> = Omit<RequestInit, "body"> & {
 };
 
 const API_BASE = "http://localhost:8080/api";
+// const API_BASE = "https://job-board-backend-pfwb.onrender.com/api";
 
 /**
  * Attach headers & auth token

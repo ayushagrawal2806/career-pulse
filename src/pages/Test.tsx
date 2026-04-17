@@ -1,12 +1,15 @@
 import { useLogin } from "../hooks/Auth";
 import type { AuthResponse } from "../models/Auth";
 import type { ErrorModel } from "../models/Error";
+import { useAppStore } from "../store/useAppStore";
 
-const Home = () => {
-  const onSuccess = (data: AuthResponse) => {
-    console.log("====================================");
-    console.log("data", data);
-    console.log("====================================");
+const Test = () => {
+  const setAuth = useAppStore((state) => state.setAuth);
+  const onSuccess = ({ data }: AuthResponse) => {
+    setAuth(data.user, {
+      accessToken: data.accessToken,
+      refreshToken: data.refreshToken,
+    });
   };
 
   const onError = (error: ErrorModel) => {
@@ -17,11 +20,11 @@ const Home = () => {
   const { mutate } = useLogin(onSuccess, onError);
 
   const handleClick = () => {
-    const obj = {
+    const payload = {
       email: "ayush@Test.com",
       password: "password123",
     };
-    mutate(obj);
+    mutate(payload);
   };
   return (
     <div>
@@ -31,4 +34,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Test;
