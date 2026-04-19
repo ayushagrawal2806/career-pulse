@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { Briefcase, Mail, Lock, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
+import type { ApiResponse } from "../../models/ApiResponse";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,8 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const setAuth = useAppStore((state) => state.setAuth);
-  const onSuccess = ({ data }: AuthResponse) => {
+  const onSuccess = (response: ApiResponse<AuthResponse>) => {
+    const { data } = response;
     setAuth(data.user, {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,

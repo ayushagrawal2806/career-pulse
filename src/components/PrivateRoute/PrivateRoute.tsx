@@ -8,10 +8,9 @@ const PrivateRoute = ({
   children: React.ReactNode;
   role?: "SEEKER" | "RECRUITER";
 }) => {
-  const { user, tokens } = useAppStore((state) => ({
-    user: state.user,
-    tokens: state.tokens,
-  }));
+  const user = useAppStore((state) => state.user);
+
+  const tokens = useAppStore((state) => state.tokens);
 
   if (!tokens) {
     return <Navigate to="/login" replace />;

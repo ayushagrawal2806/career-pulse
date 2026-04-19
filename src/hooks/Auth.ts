@@ -5,9 +5,10 @@ import { useMutation } from "@tanstack/react-query";
 import { useAppStore } from "../store/useAppStore";
 import { useNavigate } from "react-router-dom";
 import type { ErrorModel } from "../models/Error";
+import type { ApiResponse } from "../models/ApiResponse";
 
 export const useLogin = (
-  onSuccess: (data: AuthResponse) => void,
+  onSuccess: (data: ApiResponse<AuthResponse>) => void,
   OnError: (error: ErrorModel) => void,
 ) => {
   return useMutation({
@@ -27,7 +28,7 @@ export const useLogout = () => {
 };
 
 export const useSignup = (
-  onSuccess: (data: AuthResponse) => void,
+  onSuccess: (data: ApiResponse<AuthResponse>) => void,
   OnError: (error: ErrorModel) => void,
 ) => {
   return useMutation({

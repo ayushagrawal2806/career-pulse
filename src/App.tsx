@@ -13,6 +13,8 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import { useAppStore } from "./store/useAppStore";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Profile from "./pages/Profile/Profile";
 
 const RootLayout = () => {
   return (
@@ -52,6 +54,14 @@ function App() {
         {
           path: "signup",
           element: user ? <Navigate to={"/"} replace /> : <Signup />,
+        },
+        {
+          path: "profile",
+          element: (
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          ),
         },
         {
           path: "*",

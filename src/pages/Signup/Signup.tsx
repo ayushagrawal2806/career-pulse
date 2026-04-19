@@ -10,11 +10,12 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { motion } from "motion/react";
-import "./Singup.css";
+import "./Signup.css";
 import { useSignup } from "../../hooks/Auth";
 import type { AuthResponse, SignupRequest } from "../../models/Auth";
 import { useAppStore } from "../../store/useAppStore";
 import type { ErrorModel } from "../../models/Error";
+import type { ApiResponse } from "../../models/ApiResponse";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -26,7 +27,8 @@ const Signup = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const onSuccess = ({ data }: AuthResponse) => {
+  const onSuccess = (response: ApiResponse<AuthResponse>) => {
+    const { data } = response;
     setAuth(data.user, {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,

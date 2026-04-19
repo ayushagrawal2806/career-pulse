@@ -14,6 +14,7 @@ interface AppState {
   isAuthenticated: boolean;
 
   setAuth: (user: User, tokens: Tokens) => void;
+  setUser: (user: User) => void;
   updateTokens: (tokens: Tokens) => void;
   logout: () => void;
 }
@@ -31,6 +32,13 @@ export const useAppStore = create<AppState>()(
           tokens,
           isAuthenticated: true,
         }),
+
+      setUser: (user: User) =>
+        set((state) => ({
+          user,
+          tokens: state.tokens,
+          isAuthenticated: state.isAuthenticated,
+        })),
 
       updateTokens: (tokens) =>
         set((state) => ({
