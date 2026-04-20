@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 
 import "./Profile.css";
-import "../Signup/Signup.css"; // Reusing form styles
 import { useAppStore } from "../../store/useAppStore";
 import { useProfile } from "../../hooks/Profile";
 import type { User } from "../../models/User";
@@ -39,13 +38,13 @@ const Profile = () => {
     });
   };
 
-  const OnError = (err: ErrorModel) => {
+  const onError = (err: ErrorModel) => {
     console.log("====================================");
     console.log(err);
     console.log("====================================");
   };
 
-  const { mutate, isPending, isSuccess } = useProfile(onSuccess, OnError);
+  const { mutate, isPending, isSuccess } = useProfile(onSuccess, onError);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -98,8 +97,7 @@ const Profile = () => {
                   <input
                     type="text"
                     name="name"
-                    className="form-input"
-                    style={{ paddingLeft: "1rem" }}
+                    className="form-input form-input--plain"
                     value={formData.name}
                     onChange={handleChange}
                   />

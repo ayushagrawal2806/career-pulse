@@ -15,6 +15,9 @@ import Signup from "./pages/Signup/Signup";
 import { useAppStore } from "./store/useAppStore";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Profile from "./pages/Profile/Profile";
+import PostJob from "./pages/PostJob/PostJob";
+import { ToastContainer } from "react-toastify";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 const RootLayout = () => {
   return (
@@ -63,6 +66,23 @@ function App() {
             </PrivateRoute>
           ),
         },
+
+        {
+          path: "dashboard",
+          element: (
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "post-job",
+          element: (
+            <PrivateRoute role="RECRUITER">
+              <PostJob />
+            </PrivateRoute>
+          ),
+        },
         {
           path: "*",
           element: <Navigate to="/" replace />,
@@ -74,6 +94,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <ToastContainer autoClose={2000} />
     </QueryClientProvider>
   );
 }

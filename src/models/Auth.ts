@@ -1,11 +1,10 @@
+import type { UserRole } from "../enums/UserRoles";
 import type { User } from "./User";
-
-export type UserRole = "SEEKER" | "RECRUITER";
 export interface SignupRequest {
   email: string;
   name: string;
   password: string;
-  role: UserRole;
+  role: (typeof UserRole)[keyof typeof UserRole];
 }
 
 export interface LoginRequest {

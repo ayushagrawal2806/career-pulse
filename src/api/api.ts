@@ -118,10 +118,10 @@ async function call<TBody, TRes>(
     });
 
     if (refreshRes.ok) {
-      const newTokens = await refreshRes.json();
+      const response = await refreshRes.json();
       const tokens = {
-        accessToken: newTokens.accessToken,
-        refreshToken: newTokens.refreshToken,
+        accessToken: response.data.accessToken,
+        refreshToken: response.data.refreshToken,
       };
       updateTokens(tokens);
 

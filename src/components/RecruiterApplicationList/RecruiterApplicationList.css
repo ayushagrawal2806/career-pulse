@@ -1,0 +1,101 @@
+.recruiter-list-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recruiter-list-table th {
+  background-color: #f8fafc;
+  text-align: left;
+  padding: 1rem 1.5rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.05em;
+}
+
+.recruiter-list-table td {
+  padding: 1.5rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.recruiter-list-applicant-name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.recruiter-list-applicant-date {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.recruiter-list-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.recruiter-list-status-pending {
+  background-color: #fefce8;
+  color: #a16207;
+  border-color: #fef08a;
+}
+
+.recruiter-list-status-reviewing {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border-color: #dbeafe;
+}
+
+.recruiter-list-status-accepted {
+  background-color: #f0fdf4;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+
+.recruiter-list-status-rejected {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+.recruiter-list-status-select {
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  background-color: white;
+}
+
+.recruiter-list-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.recruiter-list-text-btn-primary {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.recruiter-list-text-btn-primary:hover {
+  text-decoration: underline;
+}
+
+.recruiter-list-text-center {
+  text-align: center;
+}
+
+.recruiter-list-text-muted {
+  color: #64748b;
+}
+
+.recruiter-list-p-6 {
+  padding: 1.5rem;
+}
