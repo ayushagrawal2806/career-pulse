@@ -28,3 +28,8 @@ export interface JobResponseDto {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface JobApplyRequestDto {
+  resumeUrl: string;
+  coverLetter?: string;
+}

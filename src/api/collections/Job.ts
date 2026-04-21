@@ -1,4 +1,4 @@
-import type { JobResponseDto } from "./../../models/Job";
+import type { JobApplyRequestDto, JobResponseDto } from "./../../models/Job";
 import type { ApiResponse } from "./../../models/ApiResponse";
 import type { JobRequestDto } from "../../models/Job";
 import { API } from "../api";
@@ -21,4 +21,17 @@ export const getJobApplications = (
   size = 10,
 ): Promise<ApiResponse<PageResponse<ApplicantResponseDto>>> => {
   return API.get(`/job/${jobId}/applications?page=${page}&size=${size}`);
+};
+
+export const getJobById = (
+  jobId: string,
+): Promise<ApiResponse<JobResponseDto>> => {
+  return API.get(`/job/${jobId}`);
+};
+
+export const applyJob = (
+  jobId: string,
+  payload: JobApplyRequestDto,
+): Promise<ApiResponse<void>> => {
+  return API.post(`/job/${jobId}/apply`, payload);
 };

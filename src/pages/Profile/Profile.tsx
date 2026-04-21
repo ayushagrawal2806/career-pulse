@@ -5,7 +5,6 @@ import {
   Mail,
   FileText,
   Save,
-  CheckCircle2,
   User as UserIcon,
   Link as LinkIcon,
 } from "lucide-react";
@@ -16,6 +15,7 @@ import { useProfile } from "../../hooks/Profile";
 import type { User } from "../../models/User";
 import type { ErrorModel } from "../../models/Error";
 import type { ApiResponse } from "../../models/ApiResponse";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const user = useAppStore((state) => state.user);
@@ -28,6 +28,7 @@ const Profile = () => {
   }));
 
   const onSuccess = (response: ApiResponse<User>) => {
+    toast.success(response.message);
     setUser(response.data);
     const updatedUser = response.data;
     setFormData({
@@ -39,12 +40,10 @@ const Profile = () => {
   };
 
   const onError = (err: ErrorModel) => {
-    console.log("====================================");
-    console.log(err);
-    console.log("====================================");
+    toast.error(err.message);
   };
 
-  const { mutate, isPending, isSuccess } = useProfile(onSuccess, onError);
+  const { mutate, isPending } = useProfile(onSuccess, onError);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,15 +61,9 @@ const Profile = () => {
 
   return (
     <div className="profile-page">
-      <div className="container">
-        <div className="dashboard-header">
-          <h1 className="dashboard-title">My Profile</h1>
-          {isSuccess && (
-            <div className="profile-success-alert">
-              <CheckCircle2 size={16} />
-              Saved Successfully
-            </div>
-          )}
+      <div className="profile-container">
+        <div className="profile-header">
+          <h1 className="profile-title">My Profile</h1>
         </div>
 
         <div className="profile-grid">
@@ -91,22 +84,23 @@ const Profile = () => {
 
           <div className="profile-main-col">
             <div className="profile-form-card">
-              <form onSubmit={handleSubmit} className="signup-form">
-                <div className="form-group">
-                  <label className="form-label">Display Name</label>
+              <form onSubmit={handleSubmit} className="profile-form">
+                <div className="profile-form-group">
+                  <label className="profile-form-label">Display Name</label>
                   <input
                     type="text"
                     name="name"
-                    className="form-input form-input--plain"
+                    className="profile-form-input"
+                    style={{ paddingLeft: "1rem" }}
                     value={formData.name}
                     onChange={handleChange}
                   />
                 </div>
 
-                <div className="form-group">
-                  <label className="form-label">Location</label>
-                  <div className="input-wrapper">
-                    <MapPin className="input-icon-left" size={20} />
+                <div className="profile-form-group">
+                  <label className="profile-form-label">Location</label>
+                  <div className="profile-input-wrapper">
+                    <MapPin className="profile-input-icon-left" size={20} />
                     <input
                       type="text"
                       name="location"
@@ -137,10 +131,13 @@ const Profile = () => {
                       </div>
                     </div> */}
 
-                    <div className="form-group">
-                      <label className="form-label">Resume URL</label>
-                      <div className="input-wrapper">
-                        <LinkIcon className="input-icon-left" size={20} />
+                    <div className="profile-form-group">
+                      <label className="profile-form-label">Resume URL</label>
+                      <div className="profile-input-wrapper">
+                        <LinkIcon
+                          className="profile-input-icon-left"
+                          size={20}
+                        />
                         <input
                           type="url"
                           name="resumeUrl"
@@ -154,10 +151,10 @@ const Profile = () => {
                   </>
                 )}
 
-                <div className="form-group">
-                  <label className="form-label">Bio</label>
-                  <div className="input-wrapper">
-                    <FileText className="input-icon-left" size={20} />
+                <div className="profile-form-group">
+                  <label className="profile-form-label">Bio</label>
+                  <div className="profile-input-wrapper">
+                    <FileText className="profile-input-icon-left" size={20} />
                     <textarea
                       name="bio"
                       rows={4}
@@ -172,7 +169,7 @@ const Profile = () => {
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="submit-btn"
+                  className="profile-submit-btn"
                 >
                   {isPending ? (
                     "Updating Profile..."

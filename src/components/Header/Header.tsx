@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Briefcase, User, LogOut } from "lucide-react";
 import "./Header.css";
@@ -7,6 +7,11 @@ import { useAppStore } from "../../store/useAppStore";
 export default function Header() {
   const user = useAppStore((state) => state.user);
   const logout = useAppStore((state) => state.logout);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <header className="header">
@@ -41,7 +46,11 @@ export default function Header() {
                 <User size={20} />
                 <span className="user-name">{user.name || user.email}</span>
               </Link>
-              <button onClick={logout} className="logout-btn" title="Logout">
+              <button
+                onClick={handleLogout}
+                className="logout-btn"
+                title="Logout"
+              >
                 <LogOut size={20} />
               </button>
             </div>

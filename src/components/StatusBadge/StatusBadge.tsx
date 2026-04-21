@@ -1,5 +1,5 @@
 import { AlertCircle, CheckCircle2, Clock, XCircle } from "lucide-react";
-
+import "./StatusBadge.css";
 const StatusBadge = ({ status }: { status: string }) => {
   const styles: Record<string, string> = {
     APPLIED: "status-pending",

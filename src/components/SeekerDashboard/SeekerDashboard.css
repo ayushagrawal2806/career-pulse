@@ -1,0 +1,151 @@
+.seeker-dashboard-page {
+  background-color: #f8fafc;
+  min-height: calc(100vh - 64px);
+  padding: 3rem 0;
+}
+
+.seeker-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.seeker-dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+}
+
+.seeker-dashboard-title {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.seeker-dashboard-subtitle {
+  color: #64748b;
+}
+
+.seeker-dashboard-card {
+  background-color: white;
+  border-radius: 1.25rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.seeker-empty-state {
+  text-align: center;
+  padding: 3rem 1.5rem;
+}
+
+.seeker-empty-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.seeker-empty-desc {
+  color: #64748b;
+}
+
+.seeker-btn-link {
+  color: #2563eb;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.seeker-mt-6 {
+  margin-top: 1.5rem;
+}
+
+.seeker-table-responsive {
+  overflow-x: auto;
+}
+
+.seeker-dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.seeker-dashboard-table th {
+  background-color: #f8fafc;
+  text-align: left;
+  padding: 1rem 1.5rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.05em;
+}
+
+.seeker-dashboard-table td {
+  padding: 1.5rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.seeker-applicant-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.seeker-applicant-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #eff6ff;
+  color: #2563eb;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.seeker-job-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.seeker-company-name {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.seeker-text-sm {
+  font-size: 0.875rem;
+}
+
+.seeker-text-muted {
+  color: #64748b;
+}
+
+.seeker-text-btn-danger {
+  background: none;
+  border: none;
+  color: #dc2626;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.seeker-mb-4 {
+  margin-bottom: 1rem;
+}
+.seeker-dashboard-loader-container {
+  padding: 3rem 1rem;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.seeker-dashboard-loader-text {
+  margin-top: 1rem;
+  color: #6b7280;
+  font-size: 0.95rem;
+}

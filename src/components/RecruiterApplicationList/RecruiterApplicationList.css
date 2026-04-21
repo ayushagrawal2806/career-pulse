@@ -1,101 +1,127 @@
-.recruiter-list-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.recruiter-list-table th {
-  background-color: #f8fafc;
-  text-align: left;
-  padding: 1rem 1.5rem;
-  font-size: 0.625rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #94a3b8;
-  letter-spacing: 0.05em;
-}
-
-.recruiter-list-table td {
+.recruiter-app-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   padding: 1.5rem;
-  border-bottom: 1px solid #f1f5f9;
 }
 
-.recruiter-list-applicant-name {
-  font-size: 0.875rem;
+.recruiter-app-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+
+.recruiter-app-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.recruiter-app-name {
+  font-size: 1rem;
   font-weight: 700;
   color: #0f172a;
 }
 
-.recruiter-list-applicant-date {
-  font-size: 0.75rem;
+.recruiter-app-date {
+  font-size: 0.85rem;
   color: #64748b;
+  margin-top: 0.25rem;
 }
 
-.recruiter-list-status-badge {
-  display: inline-flex;
+.recruiter-app-docs {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.recruiter-app-actions-row {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 0.25rem 0.625rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  border: 1px solid transparent;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.recruiter-list-status-pending {
-  background-color: #fefce8;
-  color: #a16207;
-  border-color: #fef08a;
-}
-
-.recruiter-list-status-reviewing {
-  background-color: #eff6ff;
-  color: #1d4ed8;
-  border-color: #dbeafe;
-}
-
-.recruiter-list-status-accepted {
-  background-color: #f0fdf4;
-  color: #15803d;
-  border-color: #bbf7d0;
-}
-
-.recruiter-list-status-rejected {
-  background-color: #fef2f2;
-  color: #b91c1c;
-  border-color: #fecaca;
-}
-
-.recruiter-list-status-select {
-  padding: 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  background-color: white;
-}
-
-.recruiter-list-table-responsive {
-  width: 100%;
-  overflow-x: auto;
-}
-
-.recruiter-list-text-btn-primary {
+.recruiter-app-link {
+  border: none;
+  background: #eff6ff;
   color: #2563eb;
+  padding: 0.55rem 1rem;
+  border-radius: 0.75rem;
   font-weight: 600;
+  cursor: pointer;
   text-decoration: none;
+  font-size: 1rem;
 }
 
-.recruiter-list-text-btn-primary:hover {
-  text-decoration: underline;
+.recruiter-app-bottom {
+  display: flex;
+  justify-content: flex-end;
 }
 
-.recruiter-list-text-center {
+.recruiter-app-select {
+  padding: 0.65rem 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  font-weight: 600;
+}
+
+.recruiter-app-loader {
+  padding: 2rem;
   text-align: center;
-}
-
-.recruiter-list-text-muted {
   color: #64748b;
 }
 
-.recruiter-list-p-6 {
+.recruiter-app-empty-state {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.recruiter-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 1rem;
+}
+
+.recruiter-modal {
+  background: white;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 1rem;
   padding: 1.5rem;
+}
+
+.recruiter-modal-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.recruiter-modal-text {
+  color: #475569;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  margin-bottom: 1.5rem;
+}
+
+.recruiter-modal-close {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.7rem 1rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
 }

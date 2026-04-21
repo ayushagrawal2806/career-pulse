@@ -1,6 +1,12 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getJobApplications, getMyJobs, postJob } from "../api/collections/Job";
-import type { JobResponseDto } from "../models/Job";
+import {
+  applyJob,
+  getJobApplications,
+  getJobById,
+  getMyJobs,
+  postJob,
+} from "../api/collections/Job";
+import type { JobApplyRequestDto, JobResponseDto } from "../models/Job";
 import type { ApiResponse } from "../models/ApiResponse";
 import type { ErrorModel } from "../models/Error";
 import type { PageResponse } from "../models/PageResponse";
@@ -29,5 +35,33 @@ export const useGetJobApplications = (jobId: string, page = 0, size = 10) => {
     queryKey: ["job-applications", jobId, page, size],
     queryFn: () => getJobApplications(jobId, page, size),
     enabled: !!jobId,
+  });
+};
+
+export const useGetJobById = (jobId?: string) => {
+  return useQuery<ApiResponse<JobResponseDto>, ErrorModel>({
+    queryKey: ["jobById", jobId],
+    queryFn: () => getJobById(jobId!),
+    enabled: !!jobId,
+  });
+};
+
+export const useApplyJob = (
+  onSuccess?: (data: ApiResponse<void>) => void,
+  onError?: (error: ErrorModel) => void,
+) => {
+  return useMutation<
+    ApiResponse<void>,
+    ErrorModel,
+    {
+      jobId: string;
+      data: JobApplyRequestDto;
+    }
+  >({
+    mutationFn: ({ jobId, data }) => applyJob(jobId, data),
+
+    onSuccess,
+
+    onError,
   });
 };

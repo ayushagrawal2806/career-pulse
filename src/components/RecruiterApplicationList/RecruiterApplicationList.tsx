@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useGetJobApplications } from "../../hooks/Job";
 import type { ApplicationStatusType } from "../../models/Application";
 import StatusBadge from "../StatusBadge/StatusBadge";
@@ -13,85 +14,104 @@ const RecruiterApplicationsList = ({
 }) => {
   const { data, isLoading } = useGetJobApplications(jobId, 0, 10);
   const apps = data?.data?.content ?? [];
+  const [selectedCoverLetter, setSelectedCoverLetter] = useState("");
 
   if (isLoading)
     return (
-      <div className="recruiter-list-p-6 recruiter-list-text-center recruiter-list-text-muted">
-        Loading applicants...
-      </div>
+      <div className="recruiter-app-empty-state">Loading applicants...</div>
     );
 
   if (apps.length === 0)
     return (
-      <div className="recruiter-list-p-6 recruiter-list-text-center recruiter-list-text-muted">
+      <div className="recruiter-app-empty-state">
         No applicants yet for this listing.
       </div>
     );
 
   return (
-    <div className="recruiter-list-table-responsive">
-      <table className="recruiter-list-table">
-        <thead>
-          <tr>
-            <th>Applicant</th>
-            <th>Status</th>
-            <th>Documents</th>
-            <th style={{ textAlign: "right" }}>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {apps.map((app) => (
-            <tr key={app.applicationId}>
-              <td>
-                <div className="recruiter-list-applicant-name">
+    <>
+      <div className="recruiter-app-list">
+        {apps.map((app) => (
+          <div key={app.applicationId} className="recruiter-app-card">
+            <div className="recruiter-app-top">
+              <div>
+                <h3 className="recruiter-app-name">
                   {app.name || `Applicant #${app.applicantId}`}
-                </div>
+                </h3>
 
-                <div className="recruiter-list-applicant-date">
-                  {new Date(app.appliedAt).toLocaleDateString()}
-                </div>
-              </td>
+                <p className="recruiter-app-date">
+                  Applied on {new Date(app.appliedAt).toLocaleDateString()}
+                </p>
+              </div>
 
-              <td>
-                <StatusBadge status={app.status} />
-              </td>
+              <StatusBadge status={app.status} />
+            </div>
 
-              <td>
+            <div className="recruiter-app-actions-row">
+              <div className="recruiter-app-docs">
                 {app.resumeUrl && (
                   <a
                     href={app.resumeUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="recruiter-list-text-btn-primary"
+                    className="recruiter-app-link"
                   >
-                    Resume
+                    View Resume
                   </a>
                 )}
-              </td>
 
-              <td style={{ textAlign: "right" }}>
-                <select
-                  className="recruiter-list-status-select"
-                  value={app.status}
-                  onChange={(e) =>
-                    onUpdateStatus(
-                      app.applicationId,
-                      e.target.value as ApplicationStatusType,
-                    )
-                  }
-                >
-                  <option value="APPLIED">Applied</option>
-                  <option value="REVIEWING">Reviewing</option>
-                  <option value="SHORTLISTED">Shortlisted</option>
-                  <option value="REJECTED">Rejected</option>
-                </select>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+                {app.coverLetter && (
+                  <button
+                    type="button"
+                    className="recruiter-app-link"
+                    onClick={() =>
+                      setSelectedCoverLetter(app.coverLetter ?? "")
+                    }
+                  >
+                    Cover Letter
+                  </button>
+                )}
+              </div>
+
+              <select
+                className="recruiter-app-select"
+                value={app.status}
+                onChange={(e) =>
+                  onUpdateStatus(
+                    app.applicationId,
+                    e.target.value as ApplicationStatusType,
+                  )
+                }
+              >
+                <option value="APPLIED">Applied</option>
+                <option value="REVIEWING">Reviewing</option>
+                <option value="SHORTLISTED">Shortlisted</option>
+                <option value="REJECTED">Rejected</option>
+              </select>
+            </div>
+          </div>
+        ))}
+      </div>
+      {selectedCoverLetter && (
+        <div
+          className="recruiter-modal-overlay"
+          onClick={() => setSelectedCoverLetter("")}
+        >
+          <div className="recruiter-modal" onClick={(e) => e.stopPropagation()}>
+            <h3 className="recruiter-modal-title">Cover Letter</h3>
+
+            <p className="recruiter-modal-text">{selectedCoverLetter}</p>
+
+            <button
+              className="recruiter-modal-close"
+              onClick={() => setSelectedCoverLetter("")}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

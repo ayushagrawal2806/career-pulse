@@ -18,6 +18,7 @@ import Profile from "./pages/Profile/Profile";
 import PostJob from "./pages/PostJob/PostJob";
 import { ToastContainer } from "react-toastify";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import JobDetails from "./pages/JobDetails/JobDetails";
 
 const RootLayout = () => {
   return (
@@ -57,6 +58,10 @@ function App() {
         {
           path: "signup",
           element: user ? <Navigate to={"/"} replace /> : <Signup />,
+        },
+        {
+          path: "job/:id",
+          element: <JobDetails />,
         },
         {
           path: "profile",
