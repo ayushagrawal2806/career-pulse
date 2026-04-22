@@ -1,10 +1,12 @@
 import { FileCheck } from "lucide-react";
+import { useState } from "react";
 import {
   useGetMyAppliedJobs,
   useWithdrawApplication,
 } from "../../hooks/Application";
 import "./SeekerDashboard.css";
 import StatusBadge from "../StatusBadge/StatusBadge";
+import Pagination from "../Pagination/Pagination";
 import { Link } from "react-router-dom";
 import type { ApiResponse } from "../../models/ApiResponse";
 import { toast } from "react-toastify";
@@ -12,8 +14,10 @@ import type { ErrorModel } from "../../models/Error";
 import { useQueryClient } from "@tanstack/react-query";
 
 const SeekerDashboard = () => {
-  const { data: response, isLoading } = useGetMyAppliedJobs();
+  const [currentPage, setCurrentPage] = useState(0);
+  const { data: response, isLoading } = useGetMyAppliedJobs(currentPage, 10);
   const applications = response?.data.content;
+  const totalPages = response?.data.page?.totalPages || 1;
   const queryClient = useQueryClient();
 
   const onSuccess = (data: ApiResponse<void>) => {
@@ -57,7 +61,7 @@ const SeekerDashboard = () => {
         </div>
 
         <div className="seeker-dashboard-card">
-          {applications?.length === 0 ? (
+          {applications?.length === 0 && currentPage === 0 ? (
             <div className="seeker-empty-state">
               <FileCheck size={48} className="seeker-text-muted seeker-mb-4" />
               <h3 className="seeker-empty-title">No applications yet</h3>
@@ -69,56 +73,69 @@ const SeekerDashboard = () => {
               </Link>
             </div>
           ) : (
-            <div className="seeker-table-responsive">
-              <table className="seeker-dashboard-table">
-                <thead>
-                  <tr>
-                    <th>Company & Role</th>
-                    <th>Status</th>
-                    <th>Applied Date</th>
-                    <th style={{ textAlign: "right" }}>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {applications?.map((app) => (
-                    <tr key={app.applicationId}>
-                      <td>
-                        <div className="seeker-applicant-info">
-                          <div className="seeker-applicant-avatar">
-                            {app.company.charAt(0)}
-                          </div>
-                          <div>
-                            <Link
-                              to={`/job/${app.jobId}`}
-                              className="seeker-job-title"
-                            >
-                              {app.jobTitle}
-                            </Link>
-                            <div className="seeker-company-name">
-                              {app.company}
+            <>
+              <div className="seeker-table-responsive">
+                <table className="seeker-dashboard-table">
+                  <thead>
+                    <tr>
+                      <th>Company & Role</th>
+                      <th>Status</th>
+                      <th>Applied Date</th>
+                      <th style={{ textAlign: "right" }}>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {applications?.map((app) => (
+                      <tr key={app.applicationId}>
+                        <td>
+                          <div className="seeker-applicant-info">
+                            <div className="seeker-applicant-avatar">
+                              {app.company.charAt(0)}
+                            </div>
+                            <div>
+                              <Link
+                                to={`/job/${app.jobId}`}
+                                className="seeker-job-title"
+                              >
+                                {app.jobTitle}
+                              </Link>
+                              <div className="seeker-company-name">
+                                {app.company}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </td>
-                      <td>
-                        <StatusBadge status={app.status} />
-                      </td>
-                      <td className="seeker-text-sm seeker-text-muted">
-                        {new Date(app.appliedAt).toLocaleDateString()}
-                      </td>
-                      <td style={{ textAlign: "right" }}>
-                        <button
-                          className="seeker-text-btn-danger"
-                          onClick={handleWithdrawApplication(app.applicationId)}
-                        >
-                          Withdraw
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                        </td>
+                        <td>
+                          <StatusBadge status={app.status} />
+                        </td>
+                        <td className="seeker-text-sm seeker-text-muted">
+                          {new Date(app.appliedAt).toLocaleDateString()}
+                        </td>
+                        <td style={{ textAlign: "right" }}>
+                          <button
+                            className="seeker-text-btn-danger"
+                            onClick={handleWithdrawApplication(
+                              app.applicationId,
+                            )}
+                          >
+                            Withdraw
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              {totalPages > 1 && (
+                <div style={{ marginBottom: "1rem" }}>
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={setCurrentPage}
+                  />
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

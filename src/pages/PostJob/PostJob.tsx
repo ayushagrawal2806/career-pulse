@@ -31,22 +31,22 @@ export default function PostJobPage() {
   });
 
   const [errors, setErrors] = useState({
-    minSalary: "",
-    maxSalary: "",
+    salaryMin: "",
+    salaryMax: "",
     minExperience: "",
     maxExperience: "",
   });
 
   const validateFields = () => {
     const newErrors = {
-      minSalary: "",
-      maxSalary: "",
+      salaryMin: "",
+      salaryMax: "",
       minExperience: "",
       maxExperience: "",
     };
 
-    if (+formData.minSalary > +formData.maxSalary)
-      newErrors.maxSalary = "Max salary must be greater";
+    if (+formData.salaryMin > +formData.salaryMax)
+      newErrors.salaryMax = "Max salary must be greater";
 
     if (+formData.minExperience > +formData.maxExperience)
       newErrors.maxExperience = "Max experience must be greater";
@@ -64,6 +64,7 @@ export default function PostJobPage() {
   };
 
   const onError = (err: ErrorModel) => {
+    toast.error(err.message);
     console.log("====================================");
     console.log(err);
     console.log("====================================");
@@ -158,6 +159,7 @@ export default function PostJobPage() {
                     style={{ paddingLeft: "1rem" }}
                     value={formData.type}
                     onChange={handleChange}
+                    required
                   >
                     <option value="FULL_TIME">Full Time</option>
                     <option value="PART_TIME">Part Time</option>
@@ -180,9 +182,9 @@ export default function PostJobPage() {
                     onChange={handleChange}
                   />
                 </div>
-                {errors.minSalary && (
+                {errors.salaryMin && (
                   <small className="post-job-field-error">
-                    {errors.minSalary}
+                    {errors.salaryMin}
                   </small>
                 )}
               </div>
@@ -200,9 +202,9 @@ export default function PostJobPage() {
                     onChange={handleChange}
                   />
                 </div>
-                {errors.maxSalary && (
+                {errors.salaryMax && (
                   <small className="post-job-field-error">
-                    {errors.maxSalary}
+                    {errors.salaryMax}
                   </small>
                 )}
               </div>
@@ -218,6 +220,7 @@ export default function PostJobPage() {
                     placeholder="e.g. 1"
                     value={formData.minExperience}
                     onChange={handleChange}
+                    required
                   />
                 </div>
                 {errors.minExperience && (
@@ -237,6 +240,7 @@ export default function PostJobPage() {
                     placeholder="e.g. 3"
                     value={formData.maxExperience}
                     onChange={handleChange}
+                    required
                   />
                 </div>
                 {errors.maxExperience && (

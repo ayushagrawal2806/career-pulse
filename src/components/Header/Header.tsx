@@ -37,6 +37,11 @@ export default function Header() {
               {user.role === "RECRUITER" ? "Dashboard" : "My Applications"}
             </Link>
           )}
+          {user?.role === "SEEKER" && (
+            <Link to="/saved-jobs" className="nav-link">
+              Saved Jobs
+            </Link>
+          )}
         </nav>
 
         <div className="header-actions">

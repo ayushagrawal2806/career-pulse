@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useGetJobApplications } from "../../hooks/Job";
 import type { ApplicationStatusType } from "../../models/Application";
 import StatusBadge from "../StatusBadge/StatusBadge";
+import Pagination from "../Pagination/Pagination";
 
 import "./RecruiterApplicationList.css";
 
@@ -12,8 +13,10 @@ const RecruiterApplicationsList = ({
   jobId: string;
   onUpdateStatus: (id: string, status: ApplicationStatusType) => void;
 }) => {
-  const { data, isLoading } = useGetJobApplications(jobId, 0, 10);
+  const [currentPage, setCurrentPage] = useState(0);
+  const { data, isLoading } = useGetJobApplications(jobId, currentPage, 10);
   const apps = data?.data?.content ?? [];
+  const totalPages = data?.data?.page?.totalPages ?? 1;
   const [selectedCoverLetter, setSelectedCoverLetter] = useState("");
 
   if (isLoading)
@@ -21,7 +24,7 @@ const RecruiterApplicationsList = ({
       <div className="recruiter-app-empty-state">Loading applicants...</div>
     );
 
-  if (apps.length === 0)
+  if (apps.length === 0 && currentPage === 0)
     return (
       <div className="recruiter-app-empty-state">
         No applicants yet for this listing.
@@ -92,6 +95,16 @@ const RecruiterApplicationsList = ({
           </div>
         ))}
       </div>
+      <div style={{ marginBottom: "1rem" }}>
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
+        )}
+      </div>
+
       {selectedCoverLetter && (
         <div
           className="recruiter-modal-overlay"

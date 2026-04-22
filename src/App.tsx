@@ -19,6 +19,7 @@ import PostJob from "./pages/PostJob/PostJob";
 import { ToastContainer } from "react-toastify";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import JobDetails from "./pages/JobDetails/JobDetails";
+import SavedJobs from "./pages/SavedJobs/SavedJobs";
 
 const RootLayout = () => {
   return (
@@ -77,6 +78,14 @@ function App() {
           element: (
             <PrivateRoute>
               <Dashboard />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "saved-jobs",
+          element: (
+            <PrivateRoute role="SEEKER">
+              <SavedJobs />
             </PrivateRoute>
           ),
         },

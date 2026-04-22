@@ -1,10 +1,14 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   applyJob,
+  filterJobs,
   getJobApplications,
   getJobById,
   getMyJobs,
+  getSavedJob,
   postJob,
+  saveJob,
+  unsaveJob,
 } from "../api/collections/Job";
 import type { JobApplyRequestDto, JobResponseDto } from "../models/Job";
 import type { ApiResponse } from "../models/ApiResponse";
@@ -63,5 +67,53 @@ export const useApplyJob = (
     onSuccess,
 
     onError,
+  });
+};
+
+export const useFilterJobs = (
+  search: string,
+  location: string,
+  type: string,
+  page: number,
+  size: number = 10,
+) => {
+  return useQuery<ApiResponse<PageResponse<JobResponseDto>>, ErrorModel>({
+    queryKey: ["jobs", search, location, type, page, size],
+    queryFn: () => filterJobs(search, location, type, page, size),
+  });
+};
+
+export const useSaveJob = (
+  onSuccess: (data: ApiResponse<void>) => void,
+  OnError: (error: ErrorModel) => void,
+) => {
+  return useMutation({
+    mutationFn: (jobId: string) => saveJob(jobId),
+    onSuccess: onSuccess,
+    onError: OnError,
+  });
+};
+
+export const useUnsaveJob = (
+  onSuccess: (data: ApiResponse<void>) => void,
+  OnError: (error: ErrorModel) => void,
+) => {
+  return useMutation({
+    mutationFn: (jobId: string) => unsaveJob(jobId),
+    onSuccess: onSuccess,
+    onError: OnError,
+  });
+};
+
+export const useGetSavedJobs = (
+  page: number = 0,
+  size: number = 10,
+  isEnabled: boolean = false,
+) => {
+  return useQuery<ApiResponse<PageResponse<JobResponseDto>>, ErrorModel>({
+    queryKey: ["saved-jobs", page, size],
+    queryFn: () => getSavedJob(page, size),
+    staleTime: 1000 * 60 * 5,
+    enabled: isEnabled,
   });
 };
