@@ -62,7 +62,7 @@ const SavedJobs = () => {
                 <JobCard key={job.id} job={job} isSaved={true} />
               ))}
             </div>
-            {totalPages >= 1 && (
+            {totalPages > 1 && (
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}

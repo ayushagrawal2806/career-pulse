@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { Link } from "react-router-dom";
 import {
   MapPin,
@@ -12,7 +11,6 @@ import {
 import { motion } from "motion/react";
 import "./JobCard.css";
 
-import "./JobCard.css";
 import type { JobResponseDto } from "../../models/Job";
 import { useAppStore } from "../../store/useAppStore";
 import { useSaveJob, useUnsaveJob } from "../../hooks/Job";
@@ -23,19 +21,18 @@ import { toast } from "react-toastify";
 
 interface JobCardProps {
   job: JobResponseDto;
-  key?: string;
   isSaved: boolean;
 }
 
 const JobCard = ({ job, isSaved: initialSaved }: JobCardProps) => {
   const user = useAppStore((state) => state.user);
+  const queryClient = useQueryClient();
+
   const [isSaved, setIsSaved] = useState(initialSaved);
 
   useEffect(() => {
     setIsSaved(initialSaved);
   }, [initialSaved]);
-
-  const queryClient = useQueryClient();
 
   const onSaveSuccess = (data: ApiResponse<void>) => {
     setIsSaved(true);
@@ -75,18 +72,20 @@ const JobCard = ({ job, isSaved: initialSaved }: JobCardProps) => {
     onUnsaveError,
   );
 
-  const toggleSave = (e: React.MouseEvent) => {
+  const toggleSave = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
     if (!user || user.role !== "SEEKER") return;
 
-    if (!isSaved) {
-      saveJobMutate(job.id);
-    } else {
+    if (isSaved) {
       unsaveJobMutate(job.id);
+    } else {
+      saveJobMutate(job.id);
     }
   };
 
   const loading = saving || unsaving;
+
   return (
     <motion.div
       layout
@@ -95,15 +94,17 @@ const JobCard = ({ job, isSaved: initialSaved }: JobCardProps) => {
       className="job-card"
     >
       <div className="job-card-header">
-        <div className="job-company-info">
-          <div className="company-logo">
+        <div className="job-card-company-info">
+          <div className="job-card-logo">
             <Building2 size={24} />
           </div>
+
           <div>
-            <Link to={`/job/${job.id}`} className="job-title">
+            <Link to={`/job/${job.id}`} className="job-card-title">
               {job.title}
             </Link>
-            <div className="company-name">{job.company}</div>
+
+            <div className="job-card-company-name">{job.company}</div>
           </div>
         </div>
 
@@ -111,43 +112,45 @@ const JobCard = ({ job, isSaved: initialSaved }: JobCardProps) => {
           <button
             onClick={toggleSave}
             disabled={loading}
-            className={`save-btn ${isSaved ? "is-saved" : ""}`}
+            className={`job-card-save-btn ${isSaved ? "is-saved" : ""}`}
           >
             {isSaved ? <BookmarkCheck size={20} /> : <Bookmark size={20} />}
           </button>
         )}
       </div>
 
-      <div className="job-meta-tags">
-        <div className="meta-tag">
+      <div className="job-card-meta-tags">
+        <div className="job-card-meta-tag">
           <MapPin />
           {job.location}
         </div>
-        <div className="meta-tag">
+
+        <div className="job-card-meta-tag">
           <Clock />
           {job.type.replace("_", " ")}
         </div>
-        {job.salaryMin && job.salaryMax && (
-          <div className="meta-tag">
+
+        {(job.salaryMin != null || job.salaryMax != null) && (
+          <div className="job-card-meta-tag">
             <Landmark />
+
             {job.salaryMin != null && job.salaryMax != null
               ? `₹${job.salaryMin.toLocaleString()} - ₹${job.salaryMax.toLocaleString()}`
               : job.salaryMax != null
                 ? `Up to ₹${job.salaryMax.toLocaleString()}`
-                : job.salaryMin != null
-                  ? `From ₹${job.salaryMin.toLocaleString()}`
-                  : "Not disclosed"}
+                : `From ₹${job.salaryMin?.toLocaleString()}`}
           </div>
         )}
       </div>
 
-      <p className="job-description">{job.description}</p>
+      <p className="job-card-description">{job.description}</p>
 
       <div className="job-card-footer">
-        <span className="post-date">
+        <span className="job-card-post-date">
           Posted {new Date(job.createdAt).toLocaleDateString()}
         </span>
-        <Link to={`/job/${job.id}`} className="view-details-link">
+
+        <Link to={`/job/${job.id}`} className="job-card-view-link">
           View Details →
         </Link>
       </div>
