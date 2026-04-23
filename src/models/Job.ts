@@ -1,11 +1,20 @@
 import type { JobStatus } from "../enums/JobStatus";
 import { JobType } from "./../enums/JobType";
+export interface JobAboutDto {
+  description: string;
+  responsibilities: string;
+  requirements: string;
+  benefits: string;
+  companyAbout: string;
+  skills: string;
+}
+
 export interface JobRequestDto {
   title: string;
-  company: string;
+  companyName: string;
   location: string;
   type: (typeof JobType)[keyof typeof JobType];
-  description: string;
+  about: JobAboutDto;
   minExperience: number;
   maxExperience: number;
   salaryMin: number;
@@ -16,10 +25,10 @@ export interface JobResponseDto {
   id: string;
   recruiterId: string;
   title: string;
-  company: string;
+  companyName: string;
   location: string;
   type: (typeof JobType)[keyof typeof JobType];
-  description: string;
+  about: JobAboutDto;
   minExperience: number;
   maxExperience: number;
   salaryMin: number;

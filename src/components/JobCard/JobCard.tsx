@@ -86,6 +86,13 @@ const JobCard = ({ job, isSaved: initialSaved }: JobCardProps) => {
 
   const loading = saving || unsaving;
 
+  const skills =
+    job.about.skills
+      ?.split(",")
+      .map((skill) => skill.trim())
+      .filter(Boolean)
+      .slice(0, 5) || [];
+
   return (
     <motion.div
       layout
@@ -104,7 +111,7 @@ const JobCard = ({ job, isSaved: initialSaved }: JobCardProps) => {
               {job.title}
             </Link>
 
-            <div className="job-card-company-name">{job.company}</div>
+            <div className="job-card-company-name">{job.companyName}</div>
           </div>
         </div>
 
@@ -143,7 +150,17 @@ const JobCard = ({ job, isSaved: initialSaved }: JobCardProps) => {
         )}
       </div>
 
-      <p className="job-card-description">{job.description}</p>
+      {skills.length > 0 && (
+        <div className="job-card-skills">
+          {skills.map((skill) => (
+            <span key={skill} className="job-card-skill-tag">
+              {skill}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <p className="job-card-description">{job.about.description}</p>
 
       <div className="job-card-footer">
         <span className="job-card-post-date">
