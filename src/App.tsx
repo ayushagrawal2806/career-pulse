@@ -97,6 +97,15 @@ function App() {
             </PrivateRoute>
           ),
         },
+
+        {
+          path: "edit-job/:id",
+          element: (
+            <PrivateRoute role="RECRUITER">
+              <PostJob />
+            </PrivateRoute>
+          ),
+        },
         {
           path: "*",
           element: <Navigate to="/" replace />,

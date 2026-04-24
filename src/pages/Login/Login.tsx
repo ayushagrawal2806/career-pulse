@@ -11,8 +11,8 @@ import { motion } from "motion/react";
 import type { ApiResponse } from "../../models/ApiResponse";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("ayush@gmail.com");
+  const [password, setPassword] = useState("password123");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const setAuth = useAppStore((state) => state.setAuth);

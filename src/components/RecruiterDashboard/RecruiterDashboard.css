@@ -90,3 +90,86 @@
   color: #6b7280;
   font-size: 0.95rem;
 }
+
+.recruiter-job-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.recruiter-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #0f172a;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.recruiter-action-btn:hover {
+  border-color: #cbd5e1;
+  background-color: #f8fafc;
+}
+
+.recruiter-edit-btn {
+  color: #2563eb;
+}
+
+.recruiter-edit-btn:hover {
+  background-color: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.recruiter-delete-btn {
+  color: #dc2626;
+}
+
+.recruiter-delete-btn:hover {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+}
+
+.recruiter-action-icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #475569;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.recruiter-action-icon-btn:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  color: #2563eb;
+}
+
+@media (max-width: 768px) {
+  .recruiter-job-item-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .recruiter-job-actions {
+    width: 100%;
+  }
+
+  .recruiter-action-btn {
+    flex: 1;
+    justify-content: center;
+  }
+}

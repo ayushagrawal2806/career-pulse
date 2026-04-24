@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
 import {
@@ -40,6 +40,13 @@ const JobDetails = () => {
 
     setIsApplyOpen(true);
   };
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   if (isLoading) {
     return (

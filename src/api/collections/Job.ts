@@ -71,3 +71,14 @@ export const getSavedJob = (
 ): Promise<ApiResponse<PageResponse<JobResponseDto>>> => {
   return API.get(`/job/saved?page=${page}&size=${size}`);
 };
+
+export const deleteJob = (jobId: string): Promise<ApiResponse<void>> => {
+  return API.delete(`/job/${jobId}`);
+};
+
+export const updateJob = (
+  jobId: string,
+  data: JobRequestDto,
+): Promise<ApiResponse<JobResponseDto>> => {
+  return API.put(`/job/${jobId}`, data);
+};

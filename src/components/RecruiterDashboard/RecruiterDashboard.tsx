@@ -1,15 +1,18 @@
 import { toast } from "react-toastify";
-import { useGetMyJobs } from "../../hooks/Job";
+import { useDeleteJob, useGetMyJobs } from "../../hooks/Job";
 import type { ApiResponse } from "../../models/ApiResponse";
 import type { ErrorModel } from "../../models/Error";
 import "./RecruiterDashboard.css";
 import type { ApplicationStatusType } from "../../models/Application";
 import { useUpdateApplicationStatus } from "../../hooks/Application";
 import { Link } from "react-router-dom";
-import { Briefcase, ExternalLink, Plus } from "lucide-react";
+import { Briefcase, ExternalLink, Pencil, Plus, Trash2 } from "lucide-react";
 import RecruiterApplicationsList from "../RecruiterApplicationList/RecruiterApplicationList";
+import { useQueryClient } from "@tanstack/react-query";
+import JobStatusBadge from "../JobStatusBadge/JobStatusBadge";
 
 const RecruiterDashboard = () => {
+  const queryClient = useQueryClient();
   const { data: response, isLoading } = useGetMyJobs();
   const jobs = response?.data ?? [];
 
@@ -26,6 +29,26 @@ const RecruiterDashboard = () => {
     onSuccess,
     onError,
   );
+
+  const onDeleteJobSuccess = (response: ApiResponse<void>) => {
+    toast.success(response.message);
+    queryClient.invalidateQueries({
+      queryKey: ["my-jobs"],
+    });
+  };
+
+  const onDeleteJobError = (err: ErrorModel) => {
+    toast.error(err.message);
+  };
+
+  const { mutate: deleteJob, isPending: isPendingDeleteJob } = useDeleteJob(
+    onDeleteJobSuccess,
+    onDeleteJobError,
+  );
+
+  const handleDelete = (jobId: string) => {
+    deleteJob(jobId);
+  };
 
   const updateStatus = async (
     applicationId: string,
@@ -87,9 +110,28 @@ const RecruiterDashboard = () => {
                       {new Date(job.createdAt).toLocaleDateString()}
                     </p>
                   </div>
-                  <Link to={`/job/${job.id}`}>
-                    <ExternalLink size={20} />
-                  </Link>
+                  <div className="recruiter-job-actions">
+                    <JobStatusBadge status={job.status} />
+                    <Link
+                      to={`/edit-job/${job.id}`}
+                      className="recruiter-action-btn recruiter-edit-btn"
+                    >
+                      <Pencil size={16} />
+                      Edit
+                    </Link>
+
+                    <button
+                      onClick={() => handleDelete(job.id)}
+                      disabled={isPendingDeleteJob}
+                      className="recruiter-action-btn recruiter-delete-btn"
+                    >
+                      <Trash2 size={16} />
+                      Delete
+                    </button>
+                    <Link to={`/job/${job.id}`}>
+                      <ExternalLink size={20} />
+                    </Link>
+                  </div>
                 </div>
                 <RecruiterApplicationsList
                   jobId={job.id}

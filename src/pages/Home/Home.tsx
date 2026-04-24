@@ -23,9 +23,10 @@ const Home = () => {
     location,
     jobType,
     currentPage,
+    5,
   );
 
-  const { data } = useGetSavedJobs(0, 10, !!user && user.role === "SEEKER");
+  const { data } = useGetSavedJobs(0, 5, !!user && user.role === "SEEKER");
   const savedJobs = data?.data.content;
   const savedJobIds = new Set(savedJobs?.map((job) => job.id) || []);
 
