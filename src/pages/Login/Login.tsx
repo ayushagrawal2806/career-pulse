@@ -1,27 +1,36 @@
-import { useLogin } from "../../hooks/Auth";
-import type { AuthResponse } from "../../models/Auth";
-import type { ErrorModel } from "../../models/Error";
-import { useAppStore } from "../../store/useAppStore";
-import "./Login.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-import { Briefcase, Mail, Lock, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
+import { ArrowRight, Lock, Mail } from "lucide-react";
+
+import { useLogin } from "../../hooks/Auth";
+import { useAppStore } from "../../store/useAppStore";
+
+import type { AuthResponse } from "../../models/Auth";
+import type { ErrorModel } from "../../models/Error";
 import type { ApiResponse } from "../../models/ApiResponse";
+
+import "./Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("ayush@gmail.com");
+
   const [password, setPassword] = useState("password123");
+
   const [error, setError] = useState("");
+
   const navigate = useNavigate();
+
   const setAuth = useAppStore((state) => state.setAuth);
+
   const onSuccess = (response: ApiResponse<AuthResponse>) => {
     const { data } = response;
+
     setAuth(data.user, {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
     });
+
     navigate("/");
   };
 
@@ -33,22 +42,18 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const payload = {
-      email: email,
-      password: password,
-    };
-    mutate(payload);
+
+    mutate({
+      email,
+      password,
+    });
   };
+
   return (
     <div className="login-container">
       <div className="login-header-box">
-        <Link to="/" className="login-logo">
-          <div className="login-logo-icon">
-            <Briefcase size={32} />
-          </div>
-          <span className="login-logo-text">CareerPulse</span>
-        </Link>
         <h2 className="login-title">Welcome back</h2>
+
         <p className="login-sub">
           Or{" "}
           <Link to="/signup" className="login-link">
@@ -59,58 +64,74 @@ const Login = () => {
 
       <div className="login-form-card">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
         >
           <form className="login-form" onSubmit={handleSubmit}>
-            {error && <div className="form-error">{error}</div>}
+            {error && <div className="login-form-error">{error}</div>}
 
-            <div className="form-group">
-              <label className="form-label">Email address</label>
-              <div className="input-wrapper">
-                <Mail className="input-icon-left" size={20} />
+            <div className="login-form-group">
+              <label className="login-form-label">Email address</label>
+
+              <div className="login-input-wrapper">
+                <Mail size={20} className="login-input-icon-left" />
+
                 <input
                   type="email"
                   required
-                  className="form-input"
-                  placeholder="Enter email"
                   value={email}
+                  placeholder="Enter email"
+                  className="login-form-input"
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Password</label>
-              <div className="input-wrapper">
-                <Lock className="input-icon-left" size={20} />
+            <div className="login-form-group">
+              <label className="login-form-label">Password</label>
+
+              <div className="login-input-wrapper">
+                <Lock size={20} className="login-input-icon-left" />
+
                 <input
                   type="password"
                   required
-                  className="form-input"
-                  placeholder="••••••••"
                   value={password}
+                  placeholder="••••••••"
+                  className="login-form-input"
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </div>
 
-            <div className="form-footer">
-              <label className="remember-me">
+            <div className="login-form-footer">
+              <label className="login-remember-me">
                 <input type="checkbox" />
                 Remember me
               </label>
-              <a href="#" className="forgot-pwd">
+
+              <a href="#" className="login-forgot-pwd">
                 Forgot password?
               </a>
             </div>
 
-            <button type="submit" disabled={isPending} className="submit-btn">
+            <button
+              type="submit"
+              disabled={isPending}
+              className="login-submit-btn"
+            >
               {isPending ? (
                 "Logging in..."
               ) : (
                 <>
-                  Sign In <ArrowRight size={18} />
+                  Sign In
+                  <ArrowRight size={18} />
                 </>
               )}
             </button>

@@ -42,3 +42,9 @@ export interface JobApplyRequestDto {
   resumeUrl: string;
   coverLetter?: string;
 }
+
+export interface JobStatusUpdateRequest {
+  status: (typeof JobStatus)[keyof typeof JobStatus];
+}
+
+export type JobStatusType = (typeof JobStatus)[keyof typeof JobStatus];

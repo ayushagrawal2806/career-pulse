@@ -1,38 +1,47 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { motion } from "motion/react";
 import {
-  Briefcase,
-  Mail,
+  ArrowRight,
   Lock,
+  Mail,
+  ShieldCheck,
   User,
   UserCheck,
-  ShieldCheck,
-  ArrowRight,
 } from "lucide-react";
-import { motion } from "motion/react";
-import "./Signup.css";
+
 import { useSignup } from "../../hooks/Auth";
-import type { AuthResponse, SignupRequest } from "../../models/Auth";
 import { useAppStore } from "../../store/useAppStore";
+
+import type { AuthResponse, SignupRequest } from "../../models/Auth";
 import type { ErrorModel } from "../../models/Error";
 import type { ApiResponse } from "../../models/ApiResponse";
 
+import "./Signup.css";
+
 const Signup = () => {
   const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
+
   const [name, setName] = useState("");
+
   const [role, setRole] = useState<"SEEKER" | "RECRUITER">("SEEKER");
-  const setAuth = useAppStore((s) => s.setAuth);
 
   const [error, setError] = useState("");
+
   const navigate = useNavigate();
+
+  const setAuth = useAppStore((state) => state.setAuth);
 
   const onSuccess = (response: ApiResponse<AuthResponse>) => {
     const { data } = response;
+
     setAuth(data.user, {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
     });
+
     navigate("/");
   };
 
@@ -42,27 +51,24 @@ const Signup = () => {
 
   const { mutate, isPending } = useSignup(onSuccess, onError);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     const payload: SignupRequest = {
-      name: name,
-      email: email,
-      password: password,
-      role: role,
+      name,
+      email,
+      password,
+      role,
     };
+
     mutate(payload);
   };
 
   return (
     <div className="signup-container">
       <div className="signup-header-box">
-        <Link to="/" className="signup-logo">
-          <div className="signup-logo-icon">
-            <Briefcase size={32} />
-          </div>
-          <span className="signup-logo-text">CareerPulse</span>
-        </Link>
         <h2 className="signup-title">Create your account</h2>
+
         <p className="signup-sub">
           Already have an account?{" "}
           <Link to="/login" className="signup-link">
@@ -73,84 +79,110 @@ const Signup = () => {
 
       <div className="signup-form-card">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
         >
           <form className="signup-form" onSubmit={handleSubmit}>
-            {error && <div className="form-error">{error}</div>}
+            {error && <div className="signup-form-error">{error}</div>}
 
-            <div className="role-selector">
+            <div className="signup-role-selector">
               <button
                 type="button"
                 onClick={() => setRole("SEEKER")}
-                className={`role-btn ${role === "SEEKER" ? "active" : ""}`}
+                className={`signup-role-btn ${
+                  role === "SEEKER" ? "active" : ""
+                }`}
               >
-                <UserCheck className="role-icon" size={32} />
-                <span className="role-name">Job Seeker</span>
-                <span className="role-desc">Find your dream job</span>
+                <UserCheck size={32} className="signup-role-icon" />
+
+                <span className="signup-role-name">Job Seeker</span>
+
+                <span className="signup-role-desc">Find your dream job</span>
               </button>
+
               <button
                 type="button"
                 onClick={() => setRole("RECRUITER")}
-                className={`role-btn ${role === "RECRUITER" ? "active" : ""}`}
+                className={`signup-role-btn ${
+                  role === "RECRUITER" ? "active" : ""
+                }`}
               >
-                <ShieldCheck className="role-icon" size={32} />
-                <span className="role-name">Recruiter</span>
-                <span className="role-desc">Hire top talent</span>
+                <ShieldCheck size={32} className="signup-role-icon" />
+
+                <span className="signup-role-name">Recruiter</span>
+
+                <span className="signup-role-desc">Hire top talent</span>
               </button>
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Full Name</label>
-              <div className="input-wrapper">
-                <User className="input-icon-left" size={20} />
+            <div className="signup-form-group">
+              <label className="signup-form-label">Full Name</label>
+
+              <div className="signup-input-wrapper">
+                <User size={20} className="signup-input-icon-left" />
+
                 <input
                   type="text"
                   required
-                  className="form-input"
-                  placeholder="Enter name"
                   value={name}
+                  placeholder="Enter name"
+                  className="signup-form-input"
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Email address</label>
-              <div className="input-wrapper">
-                <Mail className="input-icon-left" size={20} />
+            <div className="signup-form-group">
+              <label className="signup-form-label">Email address</label>
+
+              <div className="signup-input-wrapper">
+                <Mail size={20} className="signup-input-icon-left" />
+
                 <input
                   type="email"
                   required
-                  className="form-input"
-                  placeholder="Enter email"
                   value={email}
+                  placeholder="Enter email"
+                  className="signup-form-input"
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Password</label>
-              <div className="input-wrapper">
-                <Lock className="input-icon-left" size={20} />
+            <div className="signup-form-group">
+              <label className="signup-form-label">Password</label>
+
+              <div className="signup-input-wrapper">
+                <Lock size={20} className="signup-input-icon-left" />
+
                 <input
                   type="password"
                   required
-                  className="form-input"
-                  placeholder="••••••••"
                   value={password}
+                  placeholder="••••••••"
+                  className="signup-form-input"
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </div>
 
-            <button type="submit" disabled={isPending} className="submit-btn">
+            <button
+              type="submit"
+              disabled={isPending}
+              className="signup-submit-btn"
+            >
               {isPending ? (
                 "Creating account..."
               ) : (
                 <>
-                  Join CareerPulse <ArrowRight size={18} />
+                  Join CareerPulse
+                  <ArrowRight size={18} />
                 </>
               )}
             </button>

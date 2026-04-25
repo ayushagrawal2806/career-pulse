@@ -36,11 +36,11 @@ select {
   font-family: inherit;
 }
 
-.container {
+/* .container {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 2rem;
-}
+} */
 
 .app-wrapper {
   min-height: 100vh;
@@ -70,14 +70,14 @@ select {
   font-size: 0.875rem;
 }
 
-.skeleton {
+/* .skeleton {
   background-color: #e2e8f0;
   border-radius: 8px;
 }
 
 .animate-pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
+} */
 
 @keyframes pulse {
   0%,
@@ -89,7 +89,7 @@ select {
   }
 }
 
-.skeleton-title {
+/* .skeleton-title {
   height: 2rem;
   width: 25%;
   margin-bottom: 1rem;
@@ -99,4 +99,4 @@ select {
   height: 16rem;
   width: 100%;
   border-radius: 12px;
-}
+} */

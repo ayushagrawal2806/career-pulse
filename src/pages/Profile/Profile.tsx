@@ -1,27 +1,32 @@
-import React, { useState } from "react";
-
+import { useState } from "react";
 import {
-  MapPin,
-  Mail,
   FileText,
+  Link as LinkIcon,
+  Mail,
+  MapPin,
+  Phone,
   Save,
   User as UserIcon,
-  Link as LinkIcon,
 } from "lucide-react";
+import { toast } from "react-toastify";
 
 import "./Profile.css";
+
 import { useAppStore } from "../../store/useAppStore";
 import { useProfile } from "../../hooks/Profile";
+
 import type { User } from "../../models/User";
 import type { ErrorModel } from "../../models/Error";
 import type { ApiResponse } from "../../models/ApiResponse";
-import { toast } from "react-toastify";
 
 const Profile = () => {
   const user = useAppStore((state) => state.user);
+
   const setUser = useAppStore((state) => state.setUser);
+
   const [formData, setFormData] = useState(() => ({
     name: user?.name || "",
+    phone: user?.phone || "",
     bio: user?.bio || "",
     location: user?.location || "",
     resumeUrl: user?.resumeUrl || "",
@@ -29,10 +34,14 @@ const Profile = () => {
 
   const onSuccess = (response: ApiResponse<User>) => {
     toast.success(response.message);
+
     setUser(response.data);
+
     const updatedUser = response.data;
+
     setFormData({
       name: updatedUser.name || "",
+      phone: updatedUser.phone || "",
       bio: updatedUser.bio || "",
       location: updatedUser.location || "",
       resumeUrl: updatedUser.resumeUrl || "",
@@ -45,8 +54,9 @@ const Profile = () => {
 
   const { mutate, isPending } = useProfile(onSuccess, onError);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     mutate(formData);
   };
 
@@ -54,7 +64,11 @@ const Profile = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   if (!user) return null;
@@ -69,16 +83,20 @@ const Profile = () => {
         <div className="profile-grid">
           <div className="profile-sidebar-col">
             <div className="profile-card-sidebar">
-              <div className="avatar-large">
-                <UserIcon size={48} />
+              <div className="profile-avatar-large">
+                <UserIcon size={44} />
               </div>
+
               <h2 className="profile-name-h2">
                 {user.name || "Anonymous User"}
               </h2>
+
               <p className="profile-email-meta">
-                <Mail size={12} /> {user.email}
+                <Mail size={14} />
+                {user.email}
               </p>
-              <div className="role-tag">{user.role}</div>
+
+              <div className="profile-role-tag">{user.role}</div>
             </div>
           </div>
 
@@ -87,82 +105,86 @@ const Profile = () => {
               <form onSubmit={handleSubmit} className="profile-form">
                 <div className="profile-form-group">
                   <label className="profile-form-label">Display Name</label>
+
                   <input
                     type="text"
                     name="name"
-                    className="profile-form-input"
-                    style={{ paddingLeft: "1rem" }}
                     value={formData.name}
                     onChange={handleChange}
+                    required
+                    className="profile-form-input profile-no-icon-input"
                   />
                 </div>
 
                 <div className="profile-form-group">
-                  <label className="profile-form-label">Location</label>
+                  <label className="profile-form-label">Phone Number</label>
+
                   <div className="profile-input-wrapper">
-                    <MapPin className="profile-input-icon-left" size={20} />
+                    <Phone size={20} className="profile-input-icon-left" />
+
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      placeholder="Enter phone number"
+                      onChange={handleChange}
+                      className="profile-form-input"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="profile-form-group">
+                  <label className="profile-form-label">Location</label>
+
+                  <div className="profile-input-wrapper">
+                    <MapPin size={20} className="profile-input-icon-left" />
+
                     <input
                       type="text"
                       name="location"
-                      className="form-input"
-                      placeholder="Location"
                       value={formData.location}
+                      placeholder="Location"
                       onChange={handleChange}
+                      required
+                      className="profile-form-input"
                     />
                   </div>
                 </div>
 
                 {user.role === "SEEKER" && (
-                  <>
-                    {/* <div className="form-group">
-                      <label className="form-label">
-                        Skills (comma separated)
-                      </label>
-                      <div className="input-wrapper">
-                        <Briefcase className="input-icon-left" size={20} />
-                        <input
-                          type="text"
-                          name="skills"
-                          className="form-input"
-                          placeholder="React, TypeScript, Node.js"
-                          value={formData.skills}
-                          onChange={handleChange}
-                        />
-                      </div>
-                    </div> */}
+                  <div className="profile-form-group">
+                    <label className="profile-form-label">Resume URL</label>
 
-                    <div className="profile-form-group">
-                      <label className="profile-form-label">Resume URL</label>
-                      <div className="profile-input-wrapper">
-                        <LinkIcon
-                          className="profile-input-icon-left"
-                          size={20}
-                        />
-                        <input
-                          type="url"
-                          name="resumeUrl"
-                          className="form-input"
-                          placeholder="https://drive.google.com/..."
-                          value={formData.resumeUrl}
-                          onChange={handleChange}
-                        />
-                      </div>
+                    <div className="profile-input-wrapper">
+                      <LinkIcon size={20} className="profile-input-icon-left" />
+
+                      <input
+                        type="url"
+                        name="resumeUrl"
+                        value={formData.resumeUrl}
+                        placeholder="https://drive.google.com/..."
+                        onChange={handleChange}
+                        className="profile-form-input"
+                      />
                     </div>
-                  </>
+                  </div>
                 )}
 
                 <div className="profile-form-group">
                   <label className="profile-form-label">Bio</label>
+
                   <div className="profile-input-wrapper">
-                    <FileText className="profile-input-icon-left" size={20} />
+                    <FileText size={20} className="profile-input-icon-left" />
+
                     <textarea
-                      name="bio"
                       rows={4}
-                      className="form-input"
-                      placeholder="Tell us about yourself..."
+                      name="bio"
                       value={formData.bio}
+                      placeholder="Tell us about yourself..."
                       onChange={handleChange}
-                    ></textarea>
+                      className="profile-form-input"
+                    />
                   </div>
                 </div>
 

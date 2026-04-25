@@ -10,6 +10,7 @@ import "./SavedJobs.css";
 
 const SavedJobs = () => {
   const [currentPage, setCurrentPage] = useState(0);
+
   const { data: response, isLoading } = useGetSavedJobs(currentPage, 10, true);
 
   const jobs = response?.data?.content || [];
@@ -18,7 +19,7 @@ const SavedJobs = () => {
   if (isLoading) {
     return (
       <div className="saved-job-loader-container">
-        <div className="loader"></div>
+        <div className="saved-job-loader"></div>
 
         <p className="saved-job-loader-text">Loading your saved jobs...</p>
       </div>
@@ -39,10 +40,7 @@ const SavedJobs = () => {
         {jobs.length === 0 && currentPage === 0 ? (
           <div className="saved-job-card">
             <div className="saved-job-empty-state">
-              <BookmarkCheck
-                size={48}
-                className="saved-job-muted saved-job-mb-4"
-              />
+              <BookmarkCheck size={48} className="saved-job-empty-icon" />
 
               <h3 className="saved-job-empty-title">No saved jobs yet</h3>
 
@@ -50,7 +48,7 @@ const SavedJobs = () => {
                 Save interesting jobs and they will appear here.
               </p>
 
-              <Link to="/" className="saved-job-btn-link saved-job-mt-6">
+              <Link to="/" className="saved-job-btn-link">
                 Browse jobs →
               </Link>
             </div>
@@ -62,6 +60,7 @@ const SavedJobs = () => {
                 <JobCard key={job.id} job={job} isSaved={true} />
               ))}
             </div>
+
             {totalPages > 1 && (
               <Pagination
                 currentPage={currentPage}

@@ -11,13 +11,17 @@ const JobStatusBadge = ({ status }: { status: string }) => {
   };
 
   const icons: Record<string, React.ReactNode> = {
-    OPEN: <CheckCircle2 size={12} style={{ marginRight: "4px" }} />,
-    CLOSED: <Lock size={12} style={{ marginRight: "4px" }} />,
-    DRAFT: <FileText size={12} style={{ marginRight: "4px" }} />,
+    OPEN: <CheckCircle2 size={12} className="job-status-icon" />,
+
+    CLOSED: <Lock size={12} className="job-status-icon" />,
+
+    DRAFT: <FileText size={12} className="job-status-icon" />,
   };
 
   return (
-    <span className={`job-status-badge ${styles[status]}`}>
+    <span
+      className={`job-status-badge ${styles[status] || "job-status-draft"}`}
+    >
       {icons[status]}
       {status}
     </span>

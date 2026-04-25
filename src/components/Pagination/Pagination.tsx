@@ -12,7 +12,7 @@ const Pagination = ({
   totalPages,
   onPageChange,
 }: PaginationProps) => {
-  //   if (totalPages <= 1) return null;
+  if (totalPages <= 1) return null;
 
   const handlePrevious = () => {
     if (currentPage > 0) {
@@ -41,6 +41,7 @@ const Pagination = ({
       }
 
       const start = Math.max(1, currentPage - 1);
+
       const end = Math.min(totalPages - 2, currentPage + 1);
 
       for (let i = start; i <= end; i++) {
@@ -62,13 +63,14 @@ const Pagination = ({
   return (
     <div className="pagination-container">
       <button
-        className="pagination-button"
+        type="button"
         onClick={handlePrevious}
         disabled={currentPage === 0}
         aria-label="Previous page"
+        className="pagination-button"
       >
         <ChevronLeft size={18} />
-        Previous
+        <span>Previous</span>
       </button>
 
       <div className="pagination-pages">
@@ -79,25 +81,28 @@ const Pagination = ({
             </span>
           ) : (
             <button
+              type="button"
               key={page}
+              onClick={() => typeof page === "number" && onPageChange(page)}
               className={`pagination-page ${
                 currentPage === page ? "active" : ""
               }`}
-              onClick={() => typeof page === "number" && onPageChange(page)}
             >
-              {typeof page === "number" ? page + 1 : page}
+              {Number(page) + 1}
             </button>
           ),
         )}
       </div>
 
       <button
-        className="pagination-button"
+        type="button"
         onClick={handleNext}
         disabled={currentPage === totalPages - 1}
         aria-label="Next page"
+        className="pagination-button"
       >
-        Next
+        <span>Next</span>
+
         <ChevronRight size={18} />
       </button>
     </div>

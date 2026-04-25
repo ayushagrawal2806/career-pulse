@@ -11,11 +11,13 @@ import {
   saveJob,
   unsaveJob,
   updateJob,
+  updateJobStatus,
 } from "../api/collections/Job";
 import type {
   JobApplyRequestDto,
   JobRequestDto,
   JobResponseDto,
+  JobStatusUpdateRequest,
 } from "../models/Job";
 import type { ApiResponse } from "../models/ApiResponse";
 import type { ErrorModel } from "../models/Error";
@@ -148,6 +150,25 @@ export const useUpdateJob = (
     }
   >({
     mutationFn: ({ jobId, payload }) => updateJob(jobId, payload),
+
+    onSuccess,
+
+    onError,
+  });
+};
+
+export const useUpdateJobStatus = (
+  onSuccess?: (data: ApiResponse<void>) => void,
+  onError?: (error: ErrorModel) => void,
+) => {
+  return useMutation({
+    mutationFn: ({
+      jobId,
+      payload,
+    }: {
+      jobId: string;
+      payload: JobStatusUpdateRequest;
+    }) => updateJobStatus(jobId, payload),
 
     onSuccess,
 

@@ -1,4 +1,8 @@
-import type { JobApplyRequestDto, JobResponseDto } from "./../../models/Job";
+import type {
+  JobApplyRequestDto,
+  JobResponseDto,
+  JobStatusUpdateRequest,
+} from "./../../models/Job";
 import type { ApiResponse } from "./../../models/ApiResponse";
 import type { JobRequestDto } from "../../models/Job";
 import { API } from "../api";
@@ -81,4 +85,11 @@ export const updateJob = (
   data: JobRequestDto,
 ): Promise<ApiResponse<JobResponseDto>> => {
   return API.put(`/job/${jobId}`, data);
+};
+
+export const updateJobStatus = (
+  applicationId: string,
+  data: JobStatusUpdateRequest,
+): Promise<ApiResponse<void>> => {
+  return API.patch(`/job/${applicationId}/status`, data);
 };

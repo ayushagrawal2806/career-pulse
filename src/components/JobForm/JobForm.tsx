@@ -81,11 +81,12 @@ const JobForm = ({ isEditMode, jobId, initialData }: JobFormProps) => {
 
   const onCreateSuccess = (response: ApiResponse<JobResponseDto>) => {
     toast.success(response.message);
-    navigate("dashboard");
+    navigate("/dashboard");
   };
 
   const onUpdateSuccess = (response: ApiResponse<JobResponseDto>) => {
     toast.success(response.message);
+
     queryClient.invalidateQueries({
       queryKey: ["jobById", jobId],
     });
@@ -93,6 +94,7 @@ const JobForm = ({ isEditMode, jobId, initialData }: JobFormProps) => {
     queryClient.invalidateQueries({
       queryKey: ["my-jobs"],
     });
+
     navigate("/dashboard");
   };
 
@@ -173,7 +175,7 @@ const JobForm = ({ isEditMode, jobId, initialData }: JobFormProps) => {
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="back-link"
+          className="post-job-back-link"
         >
           <ChevronLeft size={16} />
           Back
@@ -194,10 +196,12 @@ const JobForm = ({ isEditMode, jobId, initialData }: JobFormProps) => {
 
           <form onSubmit={handleSubmit} className="post-job-form">
             <div className="post-job-grid">
-              <div className="grid-span-2">
+              <div className="post-job-grid-span-2">
                 <label className="post-job-form-label">Job Title</label>
+
                 <div className="post-job-input-wrapper">
                   <Type className="post-job-input-icon-left" size={20} />
+
                   <input
                     type="text"
                     name="title"
@@ -212,8 +216,10 @@ const JobForm = ({ isEditMode, jobId, initialData }: JobFormProps) => {
 
               <div>
                 <label className="post-job-form-label">Company Name</label>
+
                 <div className="post-job-input-wrapper">
                   <Briefcase className="post-job-input-icon-left" size={20} />
+
                   <input
                     type="text"
                     name="companyName"
@@ -228,8 +234,10 @@ const JobForm = ({ isEditMode, jobId, initialData }: JobFormProps) => {
 
               <div>
                 <label className="post-job-form-label">Location</label>
+
                 <div className="post-job-input-wrapper">
                   <MapPin className="post-job-input-icon-left" size={20} />
+
                   <input
                     type="text"
                     name="location"
@@ -242,13 +250,13 @@ const JobForm = ({ isEditMode, jobId, initialData }: JobFormProps) => {
                 </div>
               </div>
 
-              <div className="grid-span-2">
+              <div className="post-job-grid-span-2">
                 <label className="post-job-form-label">Job Type</label>
+
                 <div className="post-job-input-wrapper">
                   <select
                     name="type"
-                    className="post-job-form-input"
-                    style={{ paddingLeft: "1rem" }}
+                    className="post-job-form-input post-job-no-icon-input"
                     value={formData.type}
                     onChange={handleChange}
                     required
@@ -263,8 +271,10 @@ const JobForm = ({ isEditMode, jobId, initialData }: JobFormProps) => {
 
               <div>
                 <label className="post-job-form-label">Min Salary</label>
+
                 <div className="post-job-input-wrapper">
                   <Landmark className="post-job-input-icon-left" size={20} />
+
                   <input
                     type="number"
                     name="salaryMin"
@@ -274,6 +284,7 @@ const JobForm = ({ isEditMode, jobId, initialData }: JobFormProps) => {
                     onChange={handleChange}
                   />
                 </div>
+
                 {errors.salaryMin && (
                   <small className="post-job-field-error">
                     {errors.salaryMin}
@@ -283,8 +294,10 @@ const JobForm = ({ isEditMode, jobId, initialData }: JobFormProps) => {
 
               <div>
                 <label className="post-job-form-label">Max Salary</label>
+
                 <div className="post-job-input-wrapper">
                   <Landmark className="post-job-input-icon-left" size={20} />
+
                   <input
                     type="number"
                     name="salaryMax"
@@ -294,6 +307,7 @@ const JobForm = ({ isEditMode, jobId, initialData }: JobFormProps) => {
                     onChange={handleChange}
                   />
                 </div>
+
                 {errors.salaryMax && (
                   <small className="post-job-field-error">
                     {errors.salaryMax}
@@ -303,12 +317,12 @@ const JobForm = ({ isEditMode, jobId, initialData }: JobFormProps) => {
 
               <div>
                 <label className="post-job-form-label">Min Experience</label>
+
                 <div className="post-job-input-wrapper">
                   <input
                     type="number"
                     name="minExperience"
-                    className="post-job-form-input"
-                    style={{ paddingLeft: "1rem" }}
+                    className="post-job-form-input post-job-no-icon-input"
                     placeholder="e.g. 1"
                     value={
                       formData.minExperience === 0 ? "" : formData.minExperience
@@ -317,20 +331,22 @@ const JobForm = ({ isEditMode, jobId, initialData }: JobFormProps) => {
                     required
                   />
                 </div>
+
                 {errors.minExperience && (
                   <small className="post-job-field-error">
                     {errors.minExperience}
                   </small>
                 )}
               </div>
+
               <div>
                 <label className="post-job-form-label">Max Experience</label>
+
                 <div className="post-job-input-wrapper">
                   <input
                     type="number"
                     name="maxExperience"
-                    className="post-job-form-input"
-                    style={{ paddingLeft: "1rem" }}
+                    className="post-job-form-input post-job-no-icon-input"
                     placeholder="e.g. 3"
                     value={
                       formData.maxExperience === 0 ? "" : formData.maxExperience
@@ -339,6 +355,7 @@ const JobForm = ({ isEditMode, jobId, initialData }: JobFormProps) => {
                     required
                   />
                 </div>
+
                 {errors.maxExperience && (
                   <small className="post-job-field-error">
                     {errors.maxExperience}
@@ -346,93 +363,97 @@ const JobForm = ({ isEditMode, jobId, initialData }: JobFormProps) => {
                 )}
               </div>
 
-              <div className="grid-span-2">
+              <div className="post-job-grid-span-2">
                 <label className="post-job-form-label">Job Description</label>
+
                 <div className="post-job-input-wrapper">
                   <textarea
                     name="description"
                     required
                     rows={6}
-                    className="post-job-form-input post-job-textarea-input"
-                    style={{ paddingLeft: "1rem" }}
+                    className="post-job-form-input post-job-textarea-input post-job-no-icon-input"
                     placeholder="Example: We are hiring a Backend Engineer to build scalable APIs, work with cross-functional teams, and improve system performance."
                     value={formData.about.description}
                     onChange={handleChange}
-                  ></textarea>
+                  />
                 </div>
               </div>
 
-              <div className="grid-span-2">
+              <div className="post-job-grid-span-2">
                 <label className="post-job-form-label">Responsibilities</label>
+
                 <div className="post-job-input-wrapper">
                   <textarea
                     name="responsibilities"
                     required
                     rows={4}
-                    className="post-job-form-input post-job-textarea-input"
-                    style={{ paddingLeft: "1rem" }}
+                    className="post-job-form-input post-job-textarea-input post-job-no-icon-input"
                     placeholder="Example: Design REST APIs, write clean code, optimize queries, review pull requests, collaborate with product team."
                     value={formData.about.responsibilities}
                     onChange={handleChange}
-                  ></textarea>
+                  />
                 </div>
               </div>
-              <div className="grid-span-2">
+
+              <div className="post-job-grid-span-2">
                 <label className="post-job-form-label">Requirements</label>
+
                 <div className="post-job-input-wrapper">
                   <textarea
                     name="requirements"
                     required
                     rows={4}
-                    className="post-job-form-input post-job-textarea-input"
-                    style={{ paddingLeft: "1rem" }}
+                    className="post-job-form-input post-job-textarea-input post-job-no-icon-input"
                     placeholder="Example: 2+ years experience, Java, Spring Boot, SQL, Git, problem-solving skills."
                     value={formData.about.requirements}
                     onChange={handleChange}
-                  ></textarea>
+                  />
                 </div>
               </div>
-              <div className="grid-span-2">
+
+              <div className="post-job-grid-span-2">
                 <label className="post-job-form-label">Skills</label>
+
                 <div className="post-job-input-wrapper">
                   <textarea
                     name="skills"
                     required
                     rows={2}
-                    className="post-job-form-input post-job-textarea-input"
-                    style={{ paddingLeft: "1rem" }}
+                    className="post-job-form-input post-job-textarea-input post-job-no-icon-input"
                     placeholder="Example: Java, Spring Boot, PostgreSQL, Docker, AWS"
                     value={formData.about.skills}
                     onChange={handleChange}
-                  ></textarea>
+                  />
                 </div>
               </div>
-              <div className="grid-span-2">
+
+              <div className="post-job-grid-span-2">
                 <label className="post-job-form-label">Benefits</label>
+
                 <div className="post-job-input-wrapper">
                   <textarea
                     name="benefits"
                     rows={2}
-                    className="post-job-form-input post-job-textarea-input"
-                    style={{ paddingLeft: "1rem" }}
+                    className="post-job-form-input post-job-textarea-input post-job-no-icon-input"
                     placeholder="Example: Health insurance, flexible hours, annual bonus, hybrid work, paid leaves."
                     value={formData.about.benefits}
                     onChange={handleChange}
-                  ></textarea>
+                  />
                 </div>
               </div>
-              <div className="grid-span-2">
+
+              <div className="post-job-grid-span-2">
                 <label className="post-job-form-label">Company About</label>
+
                 <div className="post-job-input-wrapper">
                   <textarea
                     name="companyAbout"
                     rows={6}
-                    className="post-job-form-input post-job-textarea-input"
-                    style={{ paddingLeft: "1rem" }}
+                    className="post-job-form-input post-job-textarea-input post-job-no-icon-input"
                     placeholder="Example: Google is a global technology company building products used by billions worldwide."
                     value={formData.about.companyAbout}
                     onChange={handleChange}
-                  ></textarea>
+                  />
                 </div>
               </div>
             </div>

@@ -52,8 +52,8 @@ const JobDetails = () => {
     return (
       <div className="job-details-loader-wrapper">
         <div className="job-details-loader-container">
-          <div className="skeleton job-details-skeleton-title"></div>
-          <div className="skeleton job-details-skeleton-box"></div>
+          <div className="job-details-skeleton job-details-skeleton-title"></div>
+          <div className="job-details-skeleton job-details-skeleton-box"></div>
         </div>
       </div>
     );
@@ -143,14 +143,7 @@ const JobDetails = () => {
         <div className="job-details-grid">
           <div className="job-details-main-col">
             <section className="job-details-content-section">
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.4rem",
-                  marginBottom: "1rem",
-                }}
-              >
+              <div className="job-details-section-header">
                 <Briefcase size={20} />
                 <h2 className="job-details-section-title">Job Description</h2>
               </div>

@@ -1,35 +1,47 @@
 import { useState } from "react";
+import { FileText, FileUser } from "lucide-react";
+
 import { useGetJobApplications } from "../../hooks/Job";
 import type { ApplicationStatusType } from "../../models/Application";
+
 import StatusBadge from "../StatusBadge/StatusBadge";
 import Pagination from "../Pagination/Pagination";
+import Modal from "../Modal/Modal";
 
 import "./RecruiterApplicationList.css";
+
+interface RecruiterApplicationsListProps {
+  jobId: string;
+  onUpdateStatus: (id: string, status: ApplicationStatusType) => void;
+}
 
 const RecruiterApplicationsList = ({
   jobId,
   onUpdateStatus,
-}: {
-  jobId: string;
-  onUpdateStatus: (id: string, status: ApplicationStatusType) => void;
-}) => {
+}: RecruiterApplicationsListProps) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const { data, isLoading } = useGetJobApplications(jobId, currentPage, 10);
-  const apps = data?.data?.content ?? [];
-  const totalPages = data?.data?.page?.totalPages ?? 1;
+
   const [selectedCoverLetter, setSelectedCoverLetter] = useState("");
 
-  if (isLoading)
+  const { data, isLoading } = useGetJobApplications(jobId, currentPage, 10);
+
+  const apps = data?.data?.content ?? [];
+
+  const totalPages = data?.data?.page?.totalPages ?? 1;
+
+  if (isLoading) {
     return (
       <div className="recruiter-app-empty-state">Loading applicants...</div>
     );
+  }
 
-  if (apps.length === 0 && currentPage === 0)
+  if (apps.length === 0 && currentPage === 0) {
     return (
       <div className="recruiter-app-empty-state">
         No applicants yet for this listing.
       </div>
     );
+  }
 
   return (
     <>
@@ -59,7 +71,8 @@ const RecruiterApplicationsList = ({
                     rel="noreferrer"
                     className="recruiter-app-link"
                   >
-                    View Resume
+                    <FileUser size={16} />
+                    Resume
                   </a>
                 )}
 
@@ -71,14 +84,15 @@ const RecruiterApplicationsList = ({
                       setSelectedCoverLetter(app.coverLetter ?? "")
                     }
                   >
+                    <FileText size={16} />
                     Cover Letter
                   </button>
                 )}
               </div>
 
               <select
-                className="recruiter-app-select"
                 value={app.status}
+                className="recruiter-app-select"
                 onChange={(e) =>
                   onUpdateStatus(
                     app.applicationId,
@@ -87,43 +101,38 @@ const RecruiterApplicationsList = ({
                 }
               >
                 <option value="APPLIED">Applied</option>
+
                 <option value="REVIEWING">Reviewing</option>
+
                 <option value="SHORTLISTED">Shortlisted</option>
+
                 <option value="REJECTED">Rejected</option>
               </select>
             </div>
           </div>
         ))}
       </div>
-      <div style={{ marginBottom: "1rem" }}>
-        {totalPages > 1 && (
+
+      {totalPages > 1 && (
+        <div className="recruiter-app-pagination">
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={setCurrentPage}
           />
-        )}
-      </div>
-
-      {selectedCoverLetter && (
-        <div
-          className="recruiter-modal-overlay"
-          onClick={() => setSelectedCoverLetter("")}
-        >
-          <div className="recruiter-modal" onClick={(e) => e.stopPropagation()}>
-            <h3 className="recruiter-modal-title">Cover Letter</h3>
-
-            <p className="recruiter-modal-text">{selectedCoverLetter}</p>
-
-            <button
-              className="recruiter-modal-close"
-              onClick={() => setSelectedCoverLetter("")}
-            >
-              Close
-            </button>
-          </div>
         </div>
       )}
+
+      <Modal
+        isOpen={!!selectedCoverLetter}
+        title="Cover Letter"
+        message={selectedCoverLetter}
+        confirmText="Close"
+        cancelText=""
+        variant="primary"
+        onConfirm={() => setSelectedCoverLetter("")}
+        onClose={() => setSelectedCoverLetter("")}
+      />
     </>
   );
 };

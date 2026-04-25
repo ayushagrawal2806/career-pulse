@@ -12,28 +12,45 @@
 .apply-job-modal {
   width: 100%;
   max-width: 34rem;
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 1rem;
   padding: 1.5rem;
   outline: none;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 20px 30px rgba(15, 23, 42, 0.18);
 }
 
 .apply-job-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
 }
 
-.apply-job-header h2 {
-  font-size: 1.25rem;
-  font-weight: 700;
+.apply-job-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.apply-job-subtitle {
+  margin-top: 0.25rem;
+  font-size: 0.88rem;
+  color: #64748b;
 }
 
 .apply-job-close-btn {
-  background: none;
   border: none;
+  background: none;
   cursor: pointer;
+  color: #64748b;
+  padding: 0.35rem;
+  border-radius: 0.5rem;
+}
+
+.apply-job-close-btn:hover {
+  background-color: #f1f5f9;
 }
 
 .apply-job-form {
@@ -44,8 +61,27 @@
 
 .apply-job-group label {
   display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
+  margin-bottom: 0.55rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.apply-job-input-wrap {
+  position: relative;
+}
+
+.apply-job-input-icon {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+.apply-job-textarea-icon {
+  top: 1rem;
+  transform: none;
 }
 
 .apply-job-group input,
@@ -53,17 +89,55 @@
   width: 100%;
   border: 1px solid #e2e8f0;
   border-radius: 0.75rem;
-  padding: 0.85rem 1rem;
+  padding: 0.85rem 1rem 0.85rem 2.6rem;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  resize: vertical;
+}
+
+.apply-job-group input:focus,
+.apply-job-group textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .apply-job-submit-btn {
+  margin-top: 0.25rem;
+  width: 100%;
   background-color: #2563eb;
-  color: white;
+  color: #ffffff;
+  border: none;
   border-radius: 0.75rem;
-  padding: 0.9rem;
+  padding: 0.95rem 1rem;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.apply-job-submit-btn:hover:not(:disabled) {
+  background-color: #1d4ed8;
 }
 
 .apply-job-submit-btn:disabled {
   opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .apply-job-modal {
+    padding: 1rem;
+    border-radius: 0.9rem;
+  }
+
+  .apply-job-title {
+    font-size: 1.05rem;
+  }
+
+  .apply-job-subtitle {
+    font-size: 0.82rem;
+  }
 }
