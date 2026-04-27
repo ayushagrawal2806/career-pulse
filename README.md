@@ -8,7 +8,7 @@ Frontend: [job-board-frontend-hazel.vercel.app](https://job-board-frontend-hazel
 
 ## GitHub Repositories
 
-Frontend: [github.com/ayushagrawal2806/job-board-frontend](https://github.com/ayushagrawal2806/job-board-frontend)  
+Frontend: [github.com/ayushagrawal2806/job-board-frontend](https://github.com/ayushagrawal2806/career-pulse)  
 Backend: [github.com/ayushagrawal2806/job-board-backend](https://github.com/ayushagrawal2806/job-board-backend)
 
 ---
@@ -16,6 +16,7 @@ Backend: [github.com/ayushagrawal2806/job-board-backend](https://github.com/ayus
 ## Features
 
 ### Authentication & Security
+
 - JWT Authentication
 - Role-based Authorization (Seeker / Recruiter)
 - Protected Routes
@@ -23,6 +24,7 @@ Backend: [github.com/ayushagrawal2806/job-board-backend](https://github.com/ayus
 - Persistent Login Sessions
 
 ### Job Seeker Features
+
 - Browse Jobs
 - Search & Filter Jobs
 - Pagination
@@ -32,6 +34,7 @@ Backend: [github.com/ayushagrawal2806/job-board-backend](https://github.com/ayus
 - Update Profile
 
 ### Recruiter Features
+
 - Post Jobs
 - Edit Jobs
 - Open / Close / Draft Job Status
@@ -40,6 +43,7 @@ Backend: [github.com/ayushagrawal2806/job-board-backend](https://github.com/ayus
 - Recruiter Dashboard
 
 ### UI / UX
+
 - Fully Responsive Design
 - Reusable Modals
 - Loading States
@@ -52,6 +56,7 @@ Backend: [github.com/ayushagrawal2806/job-board-backend](https://github.com/ayus
 ## Tech Stack
 
 ### Frontend
+
 - React.js
 - TypeScript
 - React Router
@@ -61,6 +66,7 @@ Backend: [github.com/ayushagrawal2806/job-board-backend](https://github.com/ayus
 - Lucide Icons
 
 ### Backend
+
 - Spring Boot
 - Spring Security
 - JWT
@@ -68,6 +74,7 @@ Backend: [github.com/ayushagrawal2806/job-board-backend](https://github.com/ayus
 - PostgreSQL
 
 ### Deployment
+
 - Vercel (Frontend)
 - Render (Backend)
 - PostgreSQL Cloud DB
@@ -91,7 +98,7 @@ Backend: [github.com/ayushagrawal2806/job-board-backend](https://github.com/ayus
 ### Frontend
 
 ```bash
-git clone https://github.com/ayushagrawal2806/job-board-frontend
+git clone https://github.com/ayushagrawal2806/career-pulse
 cd job-board-frontend
 npm install
 npm run dev
