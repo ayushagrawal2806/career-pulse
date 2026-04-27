@@ -13,9 +13,9 @@ import type { ApiResponse } from "../../models/ApiResponse";
 import "./Login.css";
 
 const Login = () => {
-  const [email, setEmail] = useState("ayush@gmail.com");
+  const [email, setEmail] = useState("");
 
-  const [password, setPassword] = useState("password123");
+  const [password, setPassword] = useState("");
 
   const [error, setError] = useState("");
 
