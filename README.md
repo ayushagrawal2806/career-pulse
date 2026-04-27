@@ -8,7 +8,7 @@ Frontend: [job-board-frontend-hazel.vercel.app](https://job-board-frontend-hazel
 
 ## GitHub Repositories
 
-Frontend: [github.com/ayushagrawal2806/job-board-frontend](https://github.com/ayushagrawal2806/career-pulse)  
+Frontend: [github.com/ayushagrawal2806/career-pulse](https://github.com/ayushagrawal2806/career-pulse)  
 Backend: [github.com/ayushagrawal2806/job-board-backend](https://github.com/ayushagrawal2806/job-board-backend)
 
 ---
