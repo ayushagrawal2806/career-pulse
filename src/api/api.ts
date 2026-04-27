@@ -16,8 +16,9 @@ type RequestOptions<T> = Omit<RequestInit, "body"> & {
   body?: T;
 };
 
-const API_BASE = "http://localhost:8080/api";
-// const API_BASE = "https://job-board-backend-pfwb.onrender.com/api";
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
+const TIMEOUT = Number(import.meta.env.VITE_API_TIMEOUT);
 
 /**
  * Attach headers & auth token
@@ -69,7 +70,7 @@ async function call<TBody, TRes>(
   options?: RequestOptions<TBody>,
 ): Promise<TRes> {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 10000);
+  const timeout = setTimeout(() => controller.abort(), TIMEOUT);
 
   const fetchOptions = await withCredentials(withBody({ ...options, method }));
 

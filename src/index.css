@@ -70,15 +70,6 @@ select {
   font-size: 0.875rem;
 }
 
-/* .skeleton {
-  background-color: #e2e8f0;
-  border-radius: 8px;
-}
-
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-} */
-
 @keyframes pulse {
   0%,
   100% {
@@ -88,15 +79,3 @@ select {
     opacity: 0.5;
   }
 }
-
-/* .skeleton-title {
-  height: 2rem;
-  width: 25%;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-}
-.skeleton-box {
-  height: 16rem;
-  width: 100%;
-  border-radius: 12px;
-} */

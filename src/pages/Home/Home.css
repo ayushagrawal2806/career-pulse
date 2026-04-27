@@ -212,6 +212,79 @@
   margin: 0 auto;
 }
 
+.home-skeleton {
+  background-color: #e2e8f0;
+  border-radius: 8px;
+}
+
+.home-animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.home-wake-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.home-wake-modal {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
+}
+
+.home-wake-modal h2 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 1rem 0 0.5rem;
+}
+
+.home-wake-modal p {
+  color: #64748b;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.loader {
+  width: 42px;
+  height: 42px;
+  margin: 0 auto;
+  border: 4px solid #dbeafe;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: homeSpin 0.8s linear infinite;
+}
+
+@keyframes homeSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .home-wake-modal {
+    padding: 1.5rem;
+  }
+
+  .home-wake-modal h2 {
+    font-size: 1.05rem;
+  }
+
+  .home-wake-modal p {
+    font-size: 0.88rem;
+  }
+}
+
 /* Responsive */
 
 @media (min-width: 768px) {

@@ -1,4 +1,7 @@
+import ReactModal from "react-modal";
 import "./Modal.css";
+
+ReactModal.setAppElement("#root");
 
 interface ReusableConfirmModalProps {
   isOpen: boolean;
@@ -23,35 +26,43 @@ const Modal = ({
   onConfirm,
   onClose,
 }: ReusableConfirmModalProps) => {
-  if (!isOpen) return null;
-
   return (
-    <div className="confirm-modal-overlay" onClick={onClose}>
-      <div className="confirm-modal" onClick={(e) => e.stopPropagation()}>
-        <h3 className="confirm-modal-title">{title}</h3>
-        <p className="confirm-modal-message">{message}</p>
+    <ReactModal
+      isOpen={isOpen}
+      onRequestClose={isLoading ? undefined : onClose}
+      shouldCloseOnOverlayClick={!isLoading}
+      shouldCloseOnEsc={!isLoading}
+      className="confirm-modal"
+      overlayClassName="confirm-modal-overlay"
+    >
+      <h3 className="confirm-modal-title">{title}</h3>
 
-        <div className="confirm-modal-actions">
-          <button
-            type="button"
-            className="confirm-modal-btn confirm-modal-cancel"
-            onClick={onClose}
-            disabled={isLoading}
-          >
-            {cancelText}
-          </button>
+      <p className="confirm-modal-message">{message}</p>
 
-          <button
-            type="button"
-            className={`confirm-modal-btn ${variant === "danger" ? "confirm-modal-danger" : "confirm-modal-primary"}`}
-            onClick={onConfirm}
-            disabled={isLoading}
-          >
-            {isLoading ? "Please wait..." : confirmText}
-          </button>
-        </div>
+      <div className="confirm-modal-actions">
+        <button
+          type="button"
+          className="confirm-modal-btn confirm-modal-cancel"
+          onClick={onClose}
+          disabled={isLoading}
+        >
+          {cancelText}
+        </button>
+
+        <button
+          type="button"
+          onClick={onConfirm}
+          disabled={isLoading}
+          className={`confirm-modal-btn ${
+            variant === "danger"
+              ? "confirm-modal-danger"
+              : "confirm-modal-primary"
+          }`}
+        >
+          {isLoading ? "Please wait..." : confirmText}
+        </button>
       </div>
-    </div>
+    </ReactModal>
   );
 };
 
