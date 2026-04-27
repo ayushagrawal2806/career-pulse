@@ -1,73 +1,139 @@
-# React + TypeScript + Vite
+# CareerPulse – Full Stack Job Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CareerPulse is a full-stack job portal that connects **Job Seekers** and **Recruiters** through a modern, responsive web application. Users can search jobs, apply instantly, manage applications, and recruiters can post jobs and track applicants.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Frontend: [job-board-frontend-hazel.vercel.app](https://job-board-frontend-hazel.vercel.app/)
 
-## React Compiler
+## GitHub Repositories
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Frontend: [github.com/ayushagrawal2806/job-board-frontend](https://github.com/ayushagrawal2806/job-board-frontend)  
+Backend: [github.com/ayushagrawal2806/job-board-backend](https://github.com/ayushagrawal2806/job-board-backend)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Authentication & Security
+- JWT Authentication
+- Role-based Authorization (Seeker / Recruiter)
+- Protected Routes
+- Refresh Token Flow
+- Persistent Login Sessions
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Job Seeker Features
+- Browse Jobs
+- Search & Filter Jobs
+- Pagination
+- Save / Unsave Jobs
+- Apply to Jobs
+- View Application History
+- Update Profile
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Recruiter Features
+- Post Jobs
+- Edit Jobs
+- Open / Close / Draft Job Status
+- View Applicants
+- Update Applicant Status
+- Recruiter Dashboard
+
+### UI / UX
+- Fully Responsive Design
+- Reusable Modals
+- Loading States
+- Pagination UX
+- Smooth Navigation
+- Render Wake-up Loader for Free Tier Backend
+
+---
+
+## Tech Stack
+
+### Frontend
+- React.js
+- TypeScript
+- React Router
+- TanStack Query
+- Zustand
+- CSS3
+- Lucide Icons
+
+### Backend
+- Spring Boot
+- Spring Security
+- JWT
+- Spring Data JPA
+- PostgreSQL
+
+### Deployment
+- Vercel (Frontend)
+- Render (Backend)
+- PostgreSQL Cloud DB
+
+---
+
+## Screenshots
+
+<img width="1667" alt="Home" src="https://github.com/user-attachments/assets/32746588-472c-4f07-b389-dc05546c1541" />
+<br><br>
+<img width="1654" alt="Login" src="https://github.com/user-attachments/assets/c83fe727-19a4-4068-85e8-e764b6a1e119" />
+<br><br>
+<img width="1664" alt="Dashboard" src="https://github.com/user-attachments/assets/372c8000-46ff-4ab6-b0d9-15859f894f43" />
+<br><br>
+<img width="1653" alt="Job Details" src="https://github.com/user-attachments/assets/7df8422b-588d-483a-ab02-e6f30c60eb0c" />
+
+---
+
+## Local Setup
+
+### Frontend
+
+```bash
+git clone https://github.com/ayushagrawal2806/job-board-frontend
+cd job-board-frontend
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Create a `.env` file in the root:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_API_BASE_URL=http://localhost:8080/api
+VITE_API_TIMEOUT=10000
 ```
+
+### Backend
+
+> For full backend setup details, refer to the [Backend Repository](https://github.com/ayushagrawal2806/job-board-backend).
+
+```bash
+git clone https://github.com/ayushagrawal2806/job-board-backend
+cd job-board-backend
+```
+
+---
+
+## Production Note
+
+Backend is hosted on Render free tier.  
+First request may take up to 1 minute if the server is sleeping.
+
+---
+
+## Future Improvements
+
+- Email Notifications
+- Resume Upload
+- Admin Dashboard
+- Advanced Analytics
+- Interview Scheduling
+
+---
+
+## Author
+
+**Ayush Agrawal**  
+LinkedIn: [linkedin.com/in/ayushag2806](https://www.linkedin.com/in/ayushag2806)  
+GitHub: [github.com/ayushagrawal2806](https://github.com/ayushagrawal2806)
