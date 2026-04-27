@@ -19,6 +19,7 @@ import "./JobDetails.css";
 import { useAppStore } from "../../store/useAppStore";
 import { useGetJobById } from "../../hooks/Job";
 import ApplyJobModal from "../../components/ApplyJobModal/ApplyJobModal";
+import { toast } from "react-toastify";
 
 const JobDetails = () => {
   const { id } = useParams();
@@ -39,6 +40,22 @@ const JobDetails = () => {
     }
 
     setIsApplyOpen(true);
+  };
+
+  const handleSharePress = () => {
+    const url = window.location.href;
+
+    if (navigator.share) {
+      navigator.share({
+        title: job?.title,
+        text: `Check out this job: ${job?.title} at ${job?.companyName}`,
+        url,
+      });
+    } else {
+      navigator.clipboard.writeText(url).then(() => {
+        toast.success("Link copied to clipboard!");
+      });
+    }
   };
 
   useEffect(() => {
@@ -109,7 +126,10 @@ const JobDetails = () => {
               </div>
 
               <div className="job-details-header-actions">
-                <button className="icon-btn-secondary">
+                <button
+                  className="icon-btn-secondary"
+                  onClick={handleSharePress}
+                >
                   <Share2 size={20} />
                 </button>
 
