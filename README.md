@@ -99,7 +99,7 @@ Backend: [github.com/ayushagrawal2806/job-board-backend](https://github.com/ayus
 
 ```bash
 git clone https://github.com/ayushagrawal2806/career-pulse
-cd job-board-frontend
+cd career-pulse
 npm install
 npm run dev
 ```
