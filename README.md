@@ -4,7 +4,7 @@ CareerPulse is a full-stack job portal that connects **Job Seekers** and **Recru
 
 ## Live Demo
 
-Frontend: [job-board-frontend-hazel.vercel.app](https://job-board-frontend-hazel.vercel.app/)
+Frontend: [career-pulse-hazel.vercel.app](https://career-pulse-hazel.vercel.app/)
 
 ## GitHub Repositories
 
